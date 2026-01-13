@@ -1,6 +1,8 @@
 RewriteEngine On
+RewriteBase /CoachPro-v3/src/public/
 Options -Indexes
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+

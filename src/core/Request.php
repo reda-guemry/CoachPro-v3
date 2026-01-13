@@ -1,6 +1,6 @@
 <?php
 
-// namespace core ; 
+namespace core;
 
 class Request
 {
@@ -13,11 +13,12 @@ class Request
     public function uri()
     {
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-        $base = '/CoachPro-v3/src/public';
+        $base = '/CoachPro-v3/';
         if (strpos($uri, $base) === 0) {
             $uri = substr($uri, strlen($base));
         }
-        return $uri;
+        // die ($uri) ; 
+        return $uri ?: '/';
     }
 
 }

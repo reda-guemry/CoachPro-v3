@@ -1,6 +1,6 @@
 <?php
 
-use core\Request;
+namespace core ;
 
 class Router
 {
@@ -20,13 +20,24 @@ class Router
     }
 
 
-    public function execute( $request)
+    public function execute(Request $request)
     {
         $uri = $request -> uri() ; 
         $methode = $request -> method() ; 
+
+
+        if (!isset($this->routes[$methode][$uri])) {
+            die('404 Not Found');
+        }
+
         $handler = $this -> routes[$methode][$uri] ; 
 
-        return $handler ?: '/' ; 
+        [$controller , $methodeAction] = explode('@' , $handler) ;
+
+        $controller = "src\\app\\Controllers\\$controller" ;
+        $object = new $controller ; 
+        
+        call_user_func([$object , $methodeAction] , $request ) ;
         
     }
 
