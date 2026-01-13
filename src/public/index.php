@@ -9,6 +9,13 @@ error_reporting(E_ALL);
 define('SRC_PATH' , dirname(__DIR__)) ;
 
 require_once __DIR__ . '/../core/autoload.php' ;
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
+$loader = new FilesystemLoader(SRC_PATH . '/app/Views/');
+$twig = new Environment($loader);
 
 use core\Router ;
 use core\Request ;
@@ -16,7 +23,6 @@ use core\Request ;
 $router = new Router ; 
 $request = new Request ; 
 
-$router -> get ('/user' , 'usercontroler@index')  ;
-$router -> get ('/' , 'usercontroler@index')  ;
+require_once SRC_PATH . '/routes/web.php' ;
 
-echo $router -> execute($request) ; 
+$router -> execute($request) ; 
