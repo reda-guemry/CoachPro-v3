@@ -1,5 +1,8 @@
+{% extends 'layout.twig' %}
 
-<body class="bg-gradient-to-br from-[#667eea] to-[#764ba2] min-h-screen flex items-center justify-center p-4 py-12">
+
+{% block content  %}
+<div class="bg-gradient-to-br from-[#667eea] to-[#764ba2] min-h-screen flex items-center justify-center p-4 py-12">
     <div class="w-full max-w-2xl">
         <div class="text-center mb-8">
             <div class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4 shadow-lg">
@@ -262,6 +265,7 @@
         </div>
     </div>
 
-    <script src="../JS/signin.js"></script>
-</body>
-</html>
+    {# <script src="../JS/signin.js"></script> #}
+</div>
+
+{% endblock %}

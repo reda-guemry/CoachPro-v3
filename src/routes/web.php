@@ -1,5 +1,5 @@
 <?php 
 
 $router -> get ('/' , 'HomeController@index')  ;
-$router -> get ('/user' , 'usercontroler@index')  ;
+$router -> get('register' , 'auth\AutentificationControllers@register') ; 
 

@@ -8,6 +8,8 @@ define('SRC_PATH' , dirname(__DIR__)) ;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
+session_start() ;
+
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 use src\core\Router;  
@@ -16,7 +18,7 @@ use src\core\Request;
 $loader = new FilesystemLoader(SRC_PATH . '/app/Views/');
 $twig = new Environment($loader);
 
-$router = new Router; 
+$router = new Router($twig); 
 $request = new Request; 
 
 require_once SRC_PATH . '/routes/web.php';

@@ -9,6 +9,12 @@ class Router
         'POST' => []
     ];
 
+    private $twig ;
+
+    public function __construct ($twig) {
+        $this -> twig = $twig ;
+    }
+
     public function get($uri, $actiom)
     {
         $this->routes['GET'][$uri] = $actiom;
@@ -35,7 +41,7 @@ class Router
         [$controller , $methodeAction] = explode('@' , $handler) ;
 
         $controller = "src\\app\\Controllers\\$controller" ;
-        $object = new $controller ; 
+        $object = new $controller($this -> twig) ; 
         
         call_user_func([$object , $methodeAction] , $request ) ;
         
