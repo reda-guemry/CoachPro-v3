@@ -1,6 +1,6 @@
 <?php
 
-namespace Config; ; 
+namespace src\config; ; 
 use PDO;
 use PDOException;
 
