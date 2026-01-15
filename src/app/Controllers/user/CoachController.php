@@ -14,6 +14,14 @@ class CoachController extends Controler
 
     public function index()
     {
+
+        $data = [
+            'coach_id' => Session::getSession('id') 
+        ]  ;
+
+        $coashServ = new CoachService();
+        $reponse = $coashServ->getAllAvaialibities($data);
+
         $this->view('coach/dashbordcoach');
 
     }
