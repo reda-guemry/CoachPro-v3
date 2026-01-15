@@ -93,8 +93,14 @@ class AuthentificationController extends Controler
         // session_regenerate_id(true);
 
         Session::setSession('role', $user->getRole());
-        Session::setSession('user_id', $user->getEmail());
+        Session::setSession('email', $user->getEmail());
         Session::setSession('id', $user->getUserId());
+
+        // echo  Session::getSession('id');     
+        // echo $user->getUserId() ; 
+        
+        // exit ; 
+
 
         // die ($user -> getRole() ) ;
 
