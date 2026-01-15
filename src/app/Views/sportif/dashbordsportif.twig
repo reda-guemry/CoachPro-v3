@@ -1,4 +1,9 @@
-<body class="min-h-screen">
+{% extends 'layout.twig' %}
+
+
+{% block content %}
+
+<div class="min-h-screen">
     <!-- Navbar -->
     <nav class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -246,7 +251,9 @@
         </div>
     </div>
 
-    <script src="../JS/dashbordsportif.js"></script>
+    {# <script src="../JS/dashbordsportif.js"></script> #}
 
-    
-</body>
+</div>
+
+
+{% endblock %}

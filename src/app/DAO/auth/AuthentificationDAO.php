@@ -24,7 +24,9 @@ class AuthentificationDAO extends GenericDAO {
             $stmt = $pdo -> prepare($sql) ; 
             $stmt -> execute([$email]) ; 
 
-            $result = $stmt -> fetch(PDO::FETCH_ASSOC) ;
+            $stmt->setFetchMode(PDO::FETCH_CLASS, $this->getTargetClass());
+
+            $result = $stmt -> fetch() ;
 
             return $result ;
 

@@ -19,4 +19,17 @@ class Controler
 
     }
 
+    public function checkrole()
+    {
+        $role = Session::getSession('role') ; 
+
+        if ($role == 'coach') {
+            header('Location: dhasbordcoach');
+            exit;
+        }
+
+        header('Location: dashbord');
+
+    }
+
 }

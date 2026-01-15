@@ -16,6 +16,7 @@ use src\core\Router;
 use src\core\Request;  
 use src\config\Database ; 
 
+
 $loader = new FilesystemLoader(SRC_PATH . '/app/Views/');
 $twig = new Environment($loader);
 

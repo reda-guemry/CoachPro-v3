@@ -50,7 +50,7 @@ class AuthentificationController extends Controler
         }
 
         $authService = new AuthentificationService;
-        $reponse = $authService->register($data , $coachProfileData);
+        $reponse = $authService->register($data, $coachProfileData);
 
         // var_dump($reponse);
 
@@ -65,18 +65,40 @@ class AuthentificationController extends Controler
 
     }
 
-    public function showLogin () {
+    public function showLogin()
+    {
         $role = Session::getSession('role');
         if (isset($role)) {
-            header('Location: dhasbord');
+            // header('Location: dhasbord');
             exit();
         }
         $this->view('auth/login');
         exit();
     }
 
-    public function login() {
-        
+    public function login()
+    {
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        $authService = new AuthentificationService();
+        $result = $authService->login($email, $password);
+
+        if (!$result['status']) {
+            return $result;
+        }
+
+        $user = $result['user'];
+
+        // session_regenerate_id(true);
+
+        Session::setSession('role', $user->getRole());
+        Session::setSession('user_id', $user->getEmail());
+        Session::setSession('id', $user->getUserId());
+
+        // die ($user -> getRole() ) ;
+
+        $this -> checkrole() ; 
     }
- 
+
 }

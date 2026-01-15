@@ -8,4 +8,9 @@ class Session {
         return $_SESSION[$key] ?? null ; 
     }
 
+    public static function setSession($key , $value) {
+        $_SESSION[$key] = $value ; 
+    } 
+    
+
 }

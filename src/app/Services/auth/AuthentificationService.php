@@ -11,13 +11,13 @@ class AuthentificationService
     public function register(array $data, ?array $coachProfileData = null)
     {
 
-        $authDAO = new AuthentificationDAO() ; 
+        $authDAO = new AuthentificationDAO();
 
         // var_dump($coachProfileData) ; 
         // exit ; 
 
 
-        $reponse = $this->checkMailExist($data['email'] , $authDAO );
+        $reponse = $this->checkMailExist($data['email'], $authDAO);
 
         if (!$reponse['status']) {
             return $reponse;
@@ -47,31 +47,31 @@ class AuthentificationService
         unset($data['confirmPassword']);
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        $userId = $authDAO -> create($data) ;
+        $userId = $authDAO->create($data);
 
         if ($data['role'] == 'coach') {
-            $coachProfileData['coach_id'] = $userId ;  
+            $coachProfileData['coach_id'] = $userId;
 
 
             // $coachProfileData['coach_id'] = 1 ;
 
 
-            $reponse = $this->moveprofilephoto($coachProfileData['photo']) ; 
+            $reponse = $this->moveprofilephoto($coachProfileData['photo']);
             // die ($reponse . 'swoksow') ;
 
-            if($reponse) {
-                $coachProfileData['photo'] = $reponse ; 
-            }else {
-                return $reponse ; 
+            if ($reponse) {
+                $coachProfileData['photo'] = $reponse;
+            } else {
+                return $reponse;
             }
 
-            $uDetailDAO = new UserdetailDAO() ;
-            $uDetailDAO -> create($coachProfileData) ;
+            $uDetailDAO = new UserdetailDAO();
+            $uDetailDAO->create($coachProfileData);
 
         }
 
 
-        return true ;
+        return true;
 
     }
 
@@ -86,13 +86,13 @@ class AuthentificationService
                 return $filename;
             }
         }
-        return false ; 
+        return false;
     }
 
 
-    private function checkMailExist($email , $authDAO)
+    private function checkMailExist($email, $authDAO)
     {
-        if ($authDAO ->findByEmail($email)) {
+        if ($authDAO->findByEmail($email)) {
             return [
                 'status' => false,
                 'message' => 'email deja exist'
@@ -104,5 +104,40 @@ class AuthentificationService
         ];
 
     }
+
+    private function getUser($email, AuthentificationDAO $authDAO)
+    {
+        return $authDAO->findByEmail($email);
+    }
+
+    public function login($email, $password)
+    {
+        $uDetailDAO = new AuthentificationDAO();
+
+        $user = $this->getUser($email, $uDetailDAO);
+
+        if (!$user) {
+            return [
+                'status' => false,
+                'message' => 'email note exist'
+            ];
+        }
+
+        // var_dump($user) ; 
+        // exit ; 
+
+        if (password_verify($password, $user->getPassword())) {
+            return [
+                'status' => true , 
+                'user' => $user 
+            ];
+        }
+
+        return [
+            'status' => false,
+            'message' => 'password uncorect'
+        ];
+    }
+
 
 }

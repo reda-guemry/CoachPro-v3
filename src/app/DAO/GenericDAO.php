@@ -5,7 +5,7 @@ use PDOException;
 use src\app\DAO\user\UserdetailsDAO;
 use src\config\Database ; 
 use PDO ; 
-
+use src\app\Models\User ; 
 
 abstract class GenericDAO {
 
@@ -46,7 +46,7 @@ abstract class GenericDAO {
 
     }
 
-
+// authService
     public function create($data) {
         $table = $this -> getTablename() ; 
 
