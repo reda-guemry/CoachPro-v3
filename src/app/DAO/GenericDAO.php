@@ -19,7 +19,6 @@ abstract class GenericDAO {
     
 
     abstract public function getTablename() ; 
-    abstract public function getcolumns() ; 
 
     public function getTargetClass() {
         $table = $this -> getTablename() ;
@@ -33,7 +32,7 @@ abstract class GenericDAO {
     public function getall() {
         $table = $this -> getTablename() ; 
 
-        $sql = 'SELECT * FROM $table ' ; 
+        $sql = "SELECT * FROM $table " ; 
 
         try {
             $stmt = Database::getInstance() -> getConnect() -> prepare($sql) ; 
@@ -47,37 +46,37 @@ abstract class GenericDAO {
 
     }
 
-    public function create() {
-        $table = $this -> getTablename() ; 
-        $column = $this -> getcolumns() ; 
 
-        $columns = implode(', ' , $column)  ;
-        $placeholder =  implode(', ' , array_fill(0 , count($column) , '?' )) ;
+    public function create($data) {
+        $table = $this -> getTablename() ; 
+
+        $columns = implode(', ' , array_keys($data))  ;
+        $placeholder =  implode(', ' , array_fill(0 , count($data) , '?' )) ;
         
 
-        $sql = 'INSERT INTO $table ($columns) VALUE ($placeholder)' ; 
+        $sql = "INSERT INTO $table ($columns) VALUES ($placeholder)" ; 
 
         try {
             $pdo = Database::getInstance() -> getConnect() ;
             $stmt = $pdo -> prepare($sql) ;
-            $stmt -> execute (array_values($column)) ; 
+            $stmt -> execute (array_values($data)) ; 
             
             $id = $pdo -> lastInsertId() ;
 
+            // die ($id) ; 
+            
             return $id ; 
 
         }catch (PDOException $e) {
-            return false ; 
+            die("Database connection failed: " . $e->getMessage());
         }
-
-
 
     }
 
     public function findbyid($id) {
         $table = $this -> getTablename() ; 
         
-        $sql = 'SELECT * FROM $table WHERE id = ?' ;
+        $sql = "SELECT * FROM $table WHERE id = ?" ;
         
         try {
             $pdo = Database::getInstance() -> getConnect() ;
