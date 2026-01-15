@@ -40,21 +40,43 @@ class AuthentificationController extends Controler
             $profilephoto = $_FILES['photo'];
         }
 
+        if ($data['role'] === 'coach') {
+            $coachProfileData = [
+                'bio' => trim($_POST['bio'] ?? ''),
+                'experience_year' => (int) ($_POST['experienceYears'] ?? 0),
+                'certification' => trim($_POST['certifications'] ?? ''),
+                'photo' => $_FILES['photo']
+            ];
+        }
+
         $authService = new AuthentificationService;
-        $reponse = $authService->register($data);
+        $reponse = $authService->register($data , $coachProfileData);
 
-        var_dump($reponse) ;
+        // var_dump($reponse);
 
-        echo 'slm ';
-        exit ;
+        // echo 'slm ';
+        // exit;
 
-        if($reponse) {
-            header('Location: login') ; 
-        }else  {
-            die ('hmaaaaar hadche ghalat') ; 
+        if ($reponse) {
+            header('Location: login');
+        } else {
+            die('hmaaaaar hadche ghalat');
         }
 
     }
 
+    public function showLogin () {
+        $role = Session::getSession('role');
+        if (isset($role)) {
+            header('Location: dhasbord');
+            exit();
+        }
+        $this->view('auth/login');
+        exit();
+    }
 
+    public function login() {
+        
+    }
+ 
 }

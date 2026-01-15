@@ -3,29 +3,26 @@
 namespace src\app\Services\auth;
 
 use src\app\DAO\auth\AuthentificationDAO;
+use src\app\DAO\user\UserdetailDAO;
 
 class AuthentificationService
 {
 
-    private AuthentificationDAO $authDAO ; 
-
-
-    public function __construct() {
-        $this -> authDAO = new AuthentificationDAO() ;
-    }
-
-
-    public function register(array $data)
+    public function register(array $data, ?array $coachProfileData = null)
     {
-            
+
+        $authDAO = new AuthentificationDAO() ; 
+
+        // var_dump($coachProfileData) ; 
+        // exit ; 
 
 
-        $reponse = $this->checkMailExist($data['email']) ;   
+        $reponse = $this->checkMailExist($data['email'] , $authDAO );
 
-        if(!$reponse['status']) {
-            return $reponse ; 
+        if (!$reponse['status']) {
+            return $reponse;
         }
-        
+
         if (empty($data['email']) || empty($data['password'])) {
             return [
                 'status' => false,
@@ -48,19 +45,54 @@ class AuthentificationService
         }
 
         unset($data['confirmPassword']);
-        $data['password'] = password_hash($data['password'] , PASSWORD_DEFAULT) ;
+        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
-        $reponse = $this -> authDAO ->  create($data) ;
-        
-        
-        return $reponse ; 
+        $userId = $authDAO -> create($data) ;
+
+        if ($data['role'] == 'coach') {
+            $coachProfileData['coach_id'] = $userId ;  
+
+
+            // $coachProfileData['coach_id'] = 1 ;
+
+
+            $reponse = $this->moveprofilephoto($coachProfileData['photo']) ; 
+            // die ($reponse . 'swoksow') ;
+
+            if($reponse) {
+                $coachProfileData['photo'] = $reponse ; 
+            }else {
+                return $reponse ; 
+            }
+
+            $uDetailDAO = new UserdetailDAO() ;
+            $uDetailDAO -> create($coachProfileData) ;
+
+        }
+
+
+        return true ;
 
     }
 
-
-    public function checkMailExist($email)
+    private function moveprofilephoto($file)
     {
-        if ($this -> authDAO ->findByEmail($email)) {
+        // var_dump($file)  ;
+        // exit ;
+        if ($file['error'] === 0) {
+            $filename = uniqid() . '_' . $file['name'];
+            $pathfile = SRC_PATH . '/public/assets/image/' . $filename;
+            if (move_uploaded_file($file['tmp_name'], $pathfile)) {
+                return $filename;
+            }
+        }
+        return false ; 
+    }
+
+
+    private function checkMailExist($email , $authDAO)
+    {
+        if ($authDAO ->findByEmail($email)) {
             return [
                 'status' => false,
                 'message' => 'email deja exist'
@@ -68,7 +100,7 @@ class AuthentificationService
         }
 
         return [
-            'status' => true 
+            'status' => true
         ];
 
     }

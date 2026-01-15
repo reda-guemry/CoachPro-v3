@@ -2,6 +2,7 @@
 
 namespace src\app\DAO;
 use PDOException;
+use src\app\DAO\user\UserdetailsDAO;
 use src\config\Database ; 
 use PDO ; 
 
@@ -10,8 +11,7 @@ abstract class GenericDAO {
 
     private $classes = [
         'users' => User::class ,
-        'coach_profile' => DetailsUser::class , 
-        'coach_sport' => '',
+        'user_details' => Userdetail::class , 
         'availabilites' => Availabilite::class , 
         'bookings' => Booking::class , 
         'reviews' => Review::class 
@@ -52,11 +52,15 @@ abstract class GenericDAO {
 
         $columns = implode(', ' , array_keys($data))  ;
         $placeholder =  implode(', ' , array_fill(0 , count($data) , '?' )) ;
+
+        // var_dump($columns , $placeholder) ; 
+        // exit ; 
         
 
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholder)" ; 
 
         try {
+            
             $pdo = Database::getInstance() -> getConnect() ;
             $stmt = $pdo -> prepare($sql) ;
             $stmt -> execute (array_values($data)) ; 
