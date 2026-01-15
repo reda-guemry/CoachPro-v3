@@ -13,8 +13,8 @@ class CoachService
         $coachDAO = new AvailabilitesDAO;
         $reponse = $coachDAO->getall($coashId);
 
-        var_dump($reponse) ; 
-        exit ;
+        // var_dump($reponse) ; 
+        // exit ;
 
         return $reponse ; 
          

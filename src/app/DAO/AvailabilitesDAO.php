@@ -15,4 +15,7 @@ class AvailabilitesDAO extends GenericDAO {
     }
 
 
+
+
+
 }

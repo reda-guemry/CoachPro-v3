@@ -6,6 +6,7 @@ use src\app\DAO\user\UserdetailsDAO;
 use src\config\Database;
 use PDO;
 use src\app\Models\User;
+use src\app\Models\Availabilite ; 
 
 abstract class GenericDAO
 {
@@ -13,7 +14,7 @@ abstract class GenericDAO
     private $classes = [
         'users' => User::class,
         'user_details' => Userdetail::class,
-        'availabilites' => Availabilite::class,
+        'availabilities' => Availabilite::class,
         'bookings' => Booking::class,
         'reviews' => Review::class
     ];
@@ -54,6 +55,9 @@ abstract class GenericDAO
             $stmt -> execute($params) ; 
 
             $result = $stmt->fetchALl(PDO::FETCH_CLASS, $this->getTargetClass());
+
+            // var_dump ($result) ; 
+            // exit;
 
             return $result;
 

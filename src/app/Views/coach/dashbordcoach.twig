@@ -1,257 +1,286 @@
-
 {% extends 'layout.twig' %}
 
 
 {% block content %}
-<div class="min-h-screen">
-    
-    
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <i class="fas fa-dumbbell text-3xl text-purple-600 mr-3"></i>
-                    <span class="text-2xl font-bold text-gray-800">CoachPro</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <a href="coashprofile.php" class="text-gray-700 hover:text-purple-600 font-medium transition duration-300">
-                        <i class="fas fa-user-circle mr-1"></i>Mon Profil
-                    </a>
-                    <span class="text-gray-700 font-medium">Bonjour, <span id="coachName">Coach</span></span>
-                    <form method="post">
-                        <button type="submit" name="action" value="logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
+	{% for a in availibilites %}
+		{{ a.availabilityId }}
+		{{ a.availabilityDate }}
+		{{ a.startTime }}
+		-
+		{{ a.endTime }}
+		{{ a.status }}
+
+	{% endfor %}
+
+	<div class="min-h-screen">
 
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">En Attente</p>
-                        <p class="text-3xl font-bold text-yellow-600" id="pendingRequests">0</p>
-                    </div>
-                    <div class="bg-yellow-100 rounded-full p-3">
-                        <i class="fas fa-clock text-2xl text-yellow-600"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">Aujourd'hui</p>
-                        <p class="text-3xl font-bold text-green-600" id="todaySessions">0</p>
-                    </div>
-                    <div class="bg-green-100 rounded-full p-3">
-                        <i class="fas fa-calendar-day text-2xl text-green-600"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">Demain</p>
-                        <p class="text-3xl font-bold text-blue-600" id="tomorrowSessions">0</p>
-                    </div>
-                    <div class="bg-blue-100 rounded-full p-3">
-                        <i class="fas fa-calendar-plus text-2xl text-blue-600"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">Note Moyenne</p>
-                        <p class="text-3xl font-bold text-purple-600" id="averageRating">0.0</p>
-                    </div>
-                    <div class="bg-purple-100 rounded-full p-3">
-                        <i class="fas fa-star text-2xl text-purple-600"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<nav class="bg-white shadow-lg">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between items-center h-16">
+					<div class="flex items-center">
+						<i class="fas fa-dumbbell text-3xl text-purple-600 mr-3"></i>
+						<span class="text-2xl font-bold text-gray-800">CoachPro</span>
+					</div>
+					<div class="flex items-center space-x-4">
+						<a href="coashprofile.php" class="text-gray-700 hover:text-purple-600 font-medium transition duration-300">
+							<i class="fas fa-user-circle mr-1"></i>Mon Profil
+						</a>
+						<span class="text-gray-700 font-medium">Bonjour,
+							<span id="coachName">Coach</span>
+						</span>
+						<form method="post">
+							<button type="submit" name="action" value="logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
+								<i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</nav>
 
-        <!-- Next Session Alert -->
-        <div id="nextSessionAlert" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl shadow-lg p-6 mb-8 hidden">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-xl font-bold mb-2">
-                        <i class="fas fa-bell mr-2"></i>Prochaine Séance
-                    </h3>
-                    <p class="text-lg" id="nextSessionInfo">Aucune séance prévue</p>
-                </div>
-                <i class="fas fa-running text-5xl opacity-50"></i>
-            </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Booking Requests -->
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Pending Requests -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <i class="fas fa-inbox text-yellow-600 mr-2"></i>Demandes en Attente
-                    </h2>
-                    <div id="pendingRequestsList" class="space-y-4">
-                        <?php foreach($pendingBookings as $boking) {  ?>
-                            <div class="border-2 border-yellow-200 bg-yellow-50 rounded-lg p-4">
-                                <div class="flex justify-between items-start mb-3">
-                                    <div>
-                                        <h4 class="font-bold text-gray-800 text-lg">
-                                            <i class="fas fa-user text-purple-600 mr-2"></i><?= $boking['first_name'] . ' ' . $boking['last_name']; ?>
-                                        </h4>
-                                        <p class="text-sm text-gray-600 mt-1">
-                                            <i class="fas fa-calendar mr-1"></i><?= $boking['availabilites_date']; ?>
-                                        </p>
-                                        <p class="text-sm text-gray-600">
-                                            <i class="fas fa-clock mr-1"></i><?= $boking['start_time'] . ' - ' . $boking['end_time']; ?>
-                                        </p>
-                                    </div>
-                                    <span class="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full text-xs font-semibold">
-                                        <i class="fas fa-hourglass-half mr-1"></i>En attente
-                                    </span>
-                                </div>
-                                <div class="flex space-x-2 h-12">
-                                    <form method="post" class="flex-1 h-full">
-                                        <input type="hidden" name="booking_id" value="<?= $boking['booking_id']; ?>">
-                                        <button type="submit" name="action" value="accept" class="w-full h-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center">
-                                            <i class="fas fa-check mr-1"></i>Accepter
-                                        </button>
-                                    </form>
-                                    <form method="post" class="flex-1 h-full">
-                                        <input type="hidden" name="booking_id" value="<?= $boking['booking_id'] ?>">
-                                        <button type="submit" name="action" value="reject" class="w-full h-full bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center">
-                                            <i class="fas fa-times mr-1"></i>Refuser
-                                        </button>
-                                    </form>
-                                </div>
-                            </div>
-                        <?php }?>
-                    </div>
-                </div>
+		<div
+			class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+			<!-- Stats Cards -->
+			<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">En Attente</p>
+							<p class="text-3xl font-bold text-yellow-600" id="pendingRequests">0</p>
+						</div>
+						<div class="bg-yellow-100 rounded-full p-3">
+							<i class="fas fa-clock text-2xl text-yellow-600"></i>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">Aujourd'hui</p>
+							<p class="text-3xl font-bold text-green-600" id="todaySessions">0</p>
+						</div>
+						<div class="bg-green-100 rounded-full p-3">
+							<i class="fas fa-calendar-day text-2xl text-green-600"></i>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">Demain</p>
+							<p class="text-3xl font-bold text-blue-600" id="tomorrowSessions">0</p>
+						</div>
+						<div class="bg-blue-100 rounded-full p-3">
+							<i class="fas fa-calendar-plus text-2xl text-blue-600"></i>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">Note Moyenne</p>
+							<p class="text-3xl font-bold text-purple-600" id="averageRating">0.0</p>
+						</div>
+						<div class="bg-purple-100 rounded-full p-3">
+							<i class="fas fa-star text-2xl text-purple-600"></i>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                <!-- Accepted Sessions -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <i class="fas fa-check-circle text-green-600 mr-2"></i>Séances Validées
-                    </h2>
-                    <div id="acceptedSessionsList" class="space-y-4 max-h-96 overflow-y-auto">
-                        <?php foreach ($accceptseanse as $session) : ?>
+			<!-- Next Session Alert -->
+			<div id="nextSessionAlert" class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-xl shadow-lg p-6 mb-8 hidden">
+				<div class="flex items-center justify-between">
+					<div>
+						<h3 class="text-xl font-bold mb-2">
+							<i class="fas fa-bell mr-2"></i>Prochaine Séance
+						</h3>
+						<p class="text-lg" id="nextSessionInfo">Aucune séance prévue</p>
+					</div>
+					<i class="fas fa-running text-5xl opacity-50"></i>
+				</div>
+			</div>
 
-                            <div class="border-2 border-green-200 bg-green-50 rounded-lg p-4 mb-3">
-                                <div class="flex justify-between items-start">
-                                    <div>
-                                        <h4 class="font-bold text-gray-800">
-                                            <i class="fas fa-user text-purple-600 mr-2"></i>
-                                            <?= $session['first_name'] . ' ' . $session['last_name']; ?>
-                                        </h4>
+			<div
+				class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				<!-- Booking Requests -->
+				<div
+					class="lg:col-span-2 space-y-6">
+					<!-- Pending Requests -->
+					<div class="bg-white rounded-xl shadow-lg p-6">
+						<h2 class="text-2xl font-bold text-gray-800 mb-6">
+							<i class="fas fa-inbox text-yellow-600 mr-2"></i>Demandes en Attente
+						</h2>
+						<div id="pendingRequestsList" class="space-y-4">
+							<?php foreach($pendingBookings as $boking) {  ?>
+								<div class="border-2 border-yellow-200 bg-yellow-50 rounded-lg p-4">
+									<div class="flex justify-between items-start mb-3">
+										<div>
+											<h4 class="font-bold text-gray-800 text-lg">
+												<i class="fas fa-user text-purple-600 mr-2"></i>
+												<?= $boking['first_name'] . ' ' . $boking['last_name']; ?>
+											</h4>
+											<p class="text-sm text-gray-600 mt-1">
+												<i class="fas fa-calendar mr-1"></i>
+												<?= $boking['availabilites_date']; ?>
+											</p>
+											<p class="text-sm text-gray-600">
+												<i class="fas fa-clock mr-1"></i>
+												<?= $boking['start_time'] . ' - ' . $boking['end_time']; ?>
+											</p>
+										</div>
+										<span class="px-3 py-1 bg-yellow-200 text-yellow-800 rounded-full text-xs font-semibold">
+											<i class="fas fa-hourglass-half mr-1"></i>En attente
+										</span>
+									</div>
+									<div class="flex space-x-2 h-12">
+										<form method="post" class="flex-1 h-full">
+											<input type="hidden" name="booking_id" value="<?= $boking['booking_id']; ?>">
+											<button type="submit" name="action" value="accept" class="w-full h-full bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center">
+												<i class="fas fa-check mr-1"></i>Accepter
+											</button>
+										</form>
+										<form method="post" class="flex-1 h-full">
+											<input type="hidden" name="booking_id" value="<?= $boking['booking_id'] ?>">
+											<button type="submit" name="action" value="reject" class="w-full h-full bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-300 flex items-center justify-center">
+												<i class="fas fa-times mr-1"></i>Refuser
+											</button>
+										</form>
+									</div>
+								</div>
+							<?php }?>
+						</div>
+					</div>
 
-                                        <p class="text-sm text-gray-600 mt-1">
-                                            <i class="fas fa-calendar mr-1"></i>
-                                            <?= $session['availabilites_date']; ?>
-                                        </p>
+					<!-- Accepted Sessions -->
+					<div class="bg-white rounded-xl shadow-lg p-6">
+						<h2 class="text-2xl font-bold text-gray-800 mb-6">
+							<i class="fas fa-check-circle text-green-600 mr-2"></i>Séances Validées
+						</h2>
+						<div id="acceptedSessionsList" class="space-y-4 max-h-96 overflow-y-auto">
+							<?php foreach ($accceptseanse as $session) : ?>
 
-                                        <p class="text-sm text-gray-600">
-                                            <i class="fas fa-clock mr-1"></i>
-                                            <?= $session['start_time'] . ' - ' . $session['end_time']; ?>
-                                        </p>
-                                    </div>
+							<div class="border-2 border-green-200 bg-green-50 rounded-lg p-4 mb-3">
+								<div class="flex justify-between items-start">
+									<div>
+										<h4 class="font-bold text-gray-800">
+											<i class="fas fa-user text-purple-600 mr-2"></i>
+											<?= $session['first_name'] . ' ' . $session['last_name']; ?>
+										</h4>
 
-                                    <span class="px-3 py-1 bg-green-200 text-green-800 rounded-full text-xs font-semibold">
-                                        <i class="fas fa-check-circle mr-1"></i>Validée
-                                    </span>
-                                </div>
-                            </div>
+										<p class="text-sm text-gray-600 mt-1">
+											<i class="fas fa-calendar mr-1"></i>
+											<?= $session['availabilites_date']; ?>
+										</p>
 
-                        <?php endforeach; ?>
-                    </div>
-                </div>
-            </div>
+										<p class="text-sm text-gray-600">
+											<i class="fas fa-clock mr-1"></i>
+											<?= $session['start_time'] . ' - ' . $session['end_time']; ?>
+										</p>
+									</div>
 
-            <!-- Availability Management -->
-            <div class="space-y-6">
-                <!-- Add Availability -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <i class="fas fa-calendar-plus text-purple-600 mr-2"></i>Ajouter Disponibilité
-                    </h2>
-                    <form id="availabilityForm" method="post" action='dhasbordcoach/addavailibiliter'>
-                        <div class="mb-4">
-                            <label for="availDate" class="block text-gray-700 font-semibold mb-2">Date</label>
-                            <input type="date" id="availDate" name="date" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
-                        </div>
-                        <div class="mb-4">
-                            <label for="startTime" class="block text-gray-700 font-semibold mb-2">Heure début</label>
-                            <input type="time" id="startTime" name="start" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
-                        </div>
-                        <div class="mb-4">
-                            <label for="endTime" class="block text-gray-700 font-semibold mb-2">Heure fin</label>
-                            <input type="time" id="endTime" name="end" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
-                        </div>
-                        <button type="submit"  class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300">
-                            <i class="fas fa-plus mr-2"></i>Ajouter
-                        </button>
-                    </form>
-                </div>
+									<span class="px-3 py-1 bg-green-200 text-green-800 rounded-full text-xs font-semibold">
+										<i class="fas fa-check-circle mr-1"></i>Validée
+									</span>
+								</div>
+							</div>
 
-                <!-- My Availabilities -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <i class="fas fa-clock text-purple-600 mr-2"></i>Mes Disponibilités
-                    </h2>
-                    <div id="availabilitiesList" class="space-y-3 max-h-96 overflow-y-auto">
-                        <div id="availabilitiesList" class="space-y-3 max-h-96 overflow-y-auto">
-                            <?php if (empty($availabilities)) {  ?>
-                                <p class="text-gray-500 text-center py-8">Aucune disponibilité</p>
-                            <?php }else{   ?>
-                                <?php foreach ($availabilities as $avail) {  ?>
-                                    <div class="border-2 border-gray-200 rounded-lg p-3 mb-2">
-                                        <div class="flex justify-between items-start mb-2">
-                                            <div class="text-sm">
-                                                <p class="font-semibold text-gray-800"><?= htmlspecialchars($avail['availabilites_date']) ?></p>
-                                                <p class="text-gray-600"><?= htmlspecialchars($avail['start_time']) ?> - <?= htmlspecialchars($avail['end_time']) ?></p>
-                                            </div>
-                                            <span class="px-2 py-1 rounded text-xs font-semibold <?= $statusColors[$avail['status']] ?>">
-                                                <?= $avail['status'] ?>
-                                            </span>
-                                        </div>
-                                        <?php if ($avail['status'] === 'available') {  ?>
-                                            <form method="POST">
-                                                <input type="hidden" name="availability_id" value="<?= $avail['availability_id'] ?>">
-                                                <button type="submit" name="action" value="annulerSeanbse" class="w-full bg-red-500 hover:bg-red-600 text-white text-xs py-1 rounded transition duration-300">
-                                                    <i class="fas fa-trash mr-1"></i>Supprimer
-                                                </button>
-                                            </form>
-                                        <?php }; ?>
-                                    </div>
-                                <?php }; ?>
-                            <?php }; ?>
-                        </div>
-                    </div>
-                </div>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
 
-                <!-- Reviews -->
-                <div class="bg-white rounded-xl shadow-lg p-6">
-                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
-                        <i class="fas fa-star text-yellow-500 mr-2"></i>Avis Reçus
-                    </h2>
-                    <div id="reviewsList" class="space-y-3 max-h-64 overflow-y-auto">
-                        <?php foreach($reviews as $review) { ?>
-                            <div class="border-2 border-gray-200 rounded-lg p-3">
-                                <div class="flex justify-between items-start mb-2">
-                                    <p class="font-semibold text-gray-800 text-sm">
-                                        <?= $review['first_name'] . ' ' . $review['last_name']; ?>
-                                    </p>
+				<!-- Availability Management -->
+				<div
+					class="space-y-6">
+					<!-- Add Availability -->
+					<div class="bg-white rounded-xl shadow-lg p-6">
+						<h2 class="text-2xl font-bold text-gray-800 mb-6">
+							<i class="fas fa-calendar-plus text-purple-600 mr-2"></i>Ajouter Disponibilité
+						</h2>
+						<form id="availabilityForm" method="post" action='dhasbordcoach/addavailibiliter'>
+							<div class="mb-4">
+								<label for="availDate" class="block text-gray-700 font-semibold mb-2">Date</label>
+								<input type="date" id="availDate" name="date" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
+							</div>
+							<div class="mb-4">
+								<label for="startTime" class="block text-gray-700 font-semibold mb-2">Heure début</label>
+								<input type="time" id="startTime" name="start" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
+							</div>
+							<div class="mb-4">
+								<label for="endTime" class="block text-gray-700 font-semibold mb-2">Heure fin</label>
+								<input type="time" id="endTime" name="end" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
+							</div>
+							<button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300">
+								<i class="fas fa-plus mr-2"></i>Ajouter
+							</button>
+						</form>
+					</div>
 
-                                    <div class="flex items-center">
-                                        <?php
+					<!-- My Availabilities -->
+					<div class="bg-white rounded-xl shadow-lg p-6">
+						<h2 class="text-2xl font-bold text-gray-800 mb-6">
+							<i class="fas fa-clock text-purple-600 mr-2"></i>Mes Disponibilités
+						</h2>
+						<div id="availabilitiesList" class="space-y-3 max-h-96 overflow-y-auto">
+
+							{% if availibilites is empty %}
+								<p class="text-gray-500 text-center py-8">Aucune disponibilité</p>
+							{% else %}
+								{% for a in availibilites %}
+									<div class="border-2 border-gray-200 rounded-lg p-3 mb-2">
+										<div class="flex justify-between items-start mb-2">
+											<div class="text-sm">
+												<p class="font-semibold text-gray-800">{{ a.availabilitesDate }}</p>
+												<p class="text-gray-600">{{ a.startTime }}
+													-
+													{{ a.endTime }}</p>
+											</div>
+											<span class="px-2 py-1 rounded text-xs font-semibold {{ statusColors[a.status] }}">
+												{{ a.status }}
+											</span>
+										</div>
+
+										{% if a.status == 'available' %}
+											<form method="POST">
+												<input type="hidden" name="availability_id" value="{{ a.availabilityId }}">
+												<button type="submit" name="action" value="annulerSeanse" class="w-full bg-red-500 hover:bg-red-600 text-white text-xs py-1 rounded transition duration-300">
+													<i class="fas fa-trash mr-1"></i>Supprimer
+												</button>
+											</form>
+										{% endif %}
+									</div>
+								{% endfor %}
+							{% endif %}
+
+						</div>
+					</div>
+
+{# {% for a in availibilites %}
+    {{ a.availabilityId }}
+    {{ a.availabilityDate }}
+    {{ a.startTime }} - {{ a.endTime }}
+    {{ a.status }}
+
+{% endfor %} #}
+
+					<!-- Reviews -->
+					<div class="bg-white rounded-xl shadow-lg p-6">
+						<h2 class="text-2xl font-bold text-gray-800 mb-6">
+							<i class="fas fa-star text-yellow-500 mr-2"></i>Avis Reçus
+						</h2>
+						<div id="reviewsList" class="space-y-3 max-h-64 overflow-y-auto">
+							<?php foreach($reviews as $review) { ?>
+								<div class="border-2 border-gray-200 rounded-lg p-3">
+									<div class="flex justify-between items-start mb-2">
+										<p class="font-semibold text-gray-800 text-sm">
+											<?= $review['first_name'] . ' ' . $review['last_name']; ?>
+										</p>
+
+										<div class="flex items-center">
+											<?php
                                             for ($i = 0; $i < $review['ratting']; $i++) {
                                                 echo '<i class="fas fa-star text-yellow-500 text-xs"></i>';
                                             }
@@ -260,20 +289,20 @@
                                                 echo '<i class="fas fa-star text-gray-300 text-xs"></i>';
                                             }
                                         ?>
-                                    </div>
-                                </div>
+										</div>
+									</div>
 
-                                <p class="text-gray-600 text-xs mb-1">
-                                    <?= $review['commentaire']; ?>
-                                </p>
-                            </div>
-                        <?php } ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									<p class="text-gray-600 text-xs mb-1">
+										<?= $review['commentaire']; ?>
+									</p>
+								</div>
+							<?php } ?>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-</div>
+	</div>
 
 {% endblock %}

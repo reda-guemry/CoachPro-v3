@@ -16,13 +16,25 @@ class CoachController extends Controler
     {
 
         $data = [
-            'coach_id' => Session::getSession('id') 
-        ]  ;
+            'coach_id' => Session::getSession('id')
+        ];
 
         $coashServ = new CoachService();
         $reponse = $coashServ->getAllAvaialibities($data);
 
-        $this->view('coach/dashbordcoach');
+        // var_dump($reponse) ; 
+        // exit ; 
+
+
+        $data = [
+            'availibilites' => $reponse,
+            'statusColors' => [
+                'available' => 'bg-green-100 text-green-800',
+                'booked' => 'bg-yellow-100 text-yellow-800',
+                'cancelled' => 'bg-red-100 text-red-800'
+            ]
+        ];
+        $this->view('coach/dashbordcoach', $data);
 
     }
 
