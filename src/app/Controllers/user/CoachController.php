@@ -27,7 +27,7 @@ class CoachController extends Controler
 
 
         $data = [
-            'availibilites' => $reponse,
+            'availabilities' => $reponse,
             'statusColors' => [
                 'available' => 'bg-green-100 text-green-800',
                 'booked' => 'bg-yellow-100 text-yellow-800',
@@ -71,6 +71,15 @@ class CoachController extends Controler
 
     }
 
+
+    public function removeavail() {
+        $data = [
+            'availability_id' => $_POST['availability_id']
+        ] ;
+
+        $coachService = new CoachService() ; 
+        $coachService -> removeavail($data) ; 
+    }
 
 
 

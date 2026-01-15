@@ -9,15 +9,16 @@ class CoachService
 {
 
 
-    public function getAllAvaialibities ($coashId) {
+    public function getAllAvaialibities($coashId)
+    {
         $coachDAO = new AvailabilitesDAO;
         $reponse = $coachDAO->getall($coashId);
 
         // var_dump($reponse) ; 
         // exit ;
 
-        return $reponse ; 
-         
+        return $reponse;
+
     }
 
 
@@ -36,15 +37,19 @@ class CoachService
 
         // die ($reponse) ;
 
-        if($reponse) {
+        if ($reponse) {
             return [
-                'status' => true 
+                'status' => true
             ];
         }
 
-        die ($reponse) ; 
+        die($reponse);
 
     }
 
+    public function removeavail($data)
+    {
+
+    }
 
 }

@@ -120,5 +120,24 @@ abstract class GenericDAO
 
     }
 
+    public function delete($id) {
+        $table = $this -> getTablename() ; 
+        $column = array_keys($id) ; 
+        $iddelete = $id[$column] ; 
+
+        $sql = "DELETE FROM $table WHERE  $column = ? " ;
+
+        try {
+            $pdo = Database::getInstance()->getConnect();
+            $stmt = $pdo->prepare($sql);
+
+            
+            return $stmt -> execute($iddelete) ; 
+
+        } catch (PDOException $e) {
+            return false;
+        }
+        
+    }
 
 }
