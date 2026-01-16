@@ -65,10 +65,17 @@ class CoachService
         $bookingDAO = new BookingDao;
         // return $bookingDAO->getall($data[]);
 
-        return $bookingDAO -> getbookings($data['coach_id']) ;
+        return $bookingDAO->getbookings($data['coach_id']);
 
     }
 
-    
+    public function gestiondereservation($data , $condition)
+    {
+
+        $bookingDAO = new BookingDao;
+
+        return $bookingDAO->update($data , $condition);
+
+    }
 
 }

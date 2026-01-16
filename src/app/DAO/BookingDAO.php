@@ -29,7 +29,7 @@ class BookingDAO extends GenericDAO
                 FROM bookings b 
                 inner join users u on u.user_id = b.sportif_id 
                 inner join availabilities av on b.availability_id = av.availability_id
-                WHERE b.coach_id = ?";
+                WHERE b.coach_id = ? AND b.status = 'pending' ";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);

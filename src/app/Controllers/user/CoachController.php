@@ -19,19 +19,22 @@ class CoachController extends Controler
             'coach_id' => Session::getSession('id')
         ];
 
-        
+
         $coashServ = new CoachService();
         $reponse = $coashServ->getAllAvaialibities($data);
 
-        $coashBoking = $coashServ -> getAllBooking($data) ; 
+        $coashBoking = $coashServ->getAllBooking($data);
 
         // var_dump($coashBoking) ; 
         // exit ; 
 
+        $coashBoking = $coashServ->getAllAccepteboking($data);
+
+
 
         $data = [
             'availabilities' => $reponse,
-            'pendingBookings' => $coashBoking , 
+            'pendingBookings' => $coashBoking,
             'statusColors' => [
                 'available' => 'bg-green-100 text-green-800',
                 'booked' => 'bg-yellow-100 text-yellow-800',
@@ -89,13 +92,38 @@ class CoachController extends Controler
 
     }
 
-    public function refusebooking () {
-        $booking_id = $_POST['booking_id'] ;
+    public function refusebooking()
+    {
+        $data = [
+            'status' => 'rejected'            
+        ];
+        $condition = [
+            'booking_id' => $_POST['booking_id'] 
+        ] ;
 
         $coachService = new CoachService();
-        $coachService->refusebooking();
+        $coachService->gestiondereservation($data , $condition);
+
+        header('Location: ../dhasbordcoach') ; 
 
     }
+     public function acceptebooking()
+    {
+        $data = [
+            'status' => 'accepted'            
+        ];
+        $condition = [
+            'booking_id' => $_POST['booking_id'] 
+        ] ;
+
+        $coachService = new CoachService();
+        $coachService->gestiondereservation($data , $condition);
+
+        header('Location: ../dhasbordcoach') ; 
+
+    }
+
+    
 
 
 }
