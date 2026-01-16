@@ -49,6 +49,8 @@ class CoachService
 
     public function removeavail($data)
     {
+        $coachDAO = new AvailabilitesDAO;
+        $coachDAO -> delete($data) ;
 
     }
 

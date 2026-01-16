@@ -6,7 +6,7 @@ use src\app\DAO\user\UserdetailsDAO;
 use src\config\Database;
 use PDO;
 use src\app\Models\User;
-use src\app\Models\Availabilite ; 
+use src\app\Models\Availabilite;
 
 abstract class GenericDAO
 {
@@ -39,12 +39,12 @@ abstract class GenericDAO
 
         if ($id) {
             $column = array_key_first($id);
-            
+
             $value = $id[$column];
             $sql = "SELECT * FROM $table WHERE $column = ? ";
 
             $params = [$value];
-            
+
         } else {
             $sql = "SELECT * FROM $table ";
         }
@@ -52,7 +52,7 @@ abstract class GenericDAO
         try {
             $pdo = Database::getInstance()->getConnect();
             $stmt = $pdo->prepare($sql);
-            $stmt -> execute($params) ; 
+            $stmt->execute($params);
 
             $result = $stmt->fetchALl(PDO::FETCH_CLASS, $this->getTargetClass());
 
@@ -120,24 +120,28 @@ abstract class GenericDAO
 
     }
 
-    public function delete($id) {
-        $table = $this -> getTablename() ; 
-        $column = array_keys($id) ; 
-        $iddelete = $id[$column] ; 
+    public function delete($id)
+    {
+        $table = $this->getTablename();
+        $column = array_key_first($id);
 
-        $sql = "DELETE FROM $table WHERE  $column = ? " ;
+        $iddelete = $id[$column];
+        
+        // var_dump($id, $column , $iddelete) ;
+        // exit;
+
+        $sql = "DELETE FROM $table WHERE  $column = ? ";
 
         try {
             $pdo = Database::getInstance()->getConnect();
             $stmt = $pdo->prepare($sql);
 
-            
-            return $stmt -> execute($iddelete) ; 
+            return $stmt->execute([$iddelete]);
 
         } catch (PDOException $e) {
             return false;
         }
-        
+
     }
 
 }

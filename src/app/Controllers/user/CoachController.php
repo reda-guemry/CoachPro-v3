@@ -72,13 +72,17 @@ class CoachController extends Controler
     }
 
 
-    public function removeavail() {
+    public function removeavail()
+    {
         $data = [
             'availability_id' => $_POST['availability_id']
-        ] ;
+        ];
 
-        $coachService = new CoachService() ; 
-        $coachService -> removeavail($data) ; 
+        $coachService = new CoachService();
+        $coachService->removeavail($data);
+
+        header('Location: ../dhasbordcoach');
+
     }
 
 
