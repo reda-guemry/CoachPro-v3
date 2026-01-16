@@ -3,7 +3,7 @@
 namespace src\app\Services\user;
 
 use src\app\DAO\AvailabilitesDAO;
-use src\app\DAO\BookingDAO ; 
+use src\app\DAO\BookingDAO;
 
 
 class CoachService
@@ -51,18 +51,24 @@ class CoachService
     public function removeavail($data)
     {
         $coachDAO = new AvailabilitesDAO;
-        $coachDAO -> delete($data) ;
+        $coachDAO->delete($data);
 
 
     }
 
-    public function getAllBooking($data) {
+    public function getAllBooking($data)
+    {
 
-    // var_dump($data) ; 
-    // exit ;
+        // var_dump($data) ; 
+        // exit ;
 
-        $bookingDAO = new BookingDao ; 
-        return $bookingDAO -> getall($data) ; 
+        $bookingDAO = new BookingDao;
+        // return $bookingDAO->getall($data[]);
+
+        return $bookingDAO -> getbookings($data['coach_id']) ;
 
     }
+
+    
+
 }

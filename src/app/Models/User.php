@@ -2,6 +2,8 @@
 
 namespace src\app\Models;;
 
+use src\app\DAO\BookingDAO;
+
 class User
 {
     private int $user_id;
@@ -10,6 +12,15 @@ class User
     private string $email;
     private string $password;
     private string $role;
+
+    private $bookings ; 
+
+    public function __construct() {
+        $bokingDAO = new BookingDAO() ; 
+        $id = ['user_id' => $this -> getUserId()] ; 
+        $this -> bookings = $bokingDAO -> getall($id) ; 
+
+    }
 
     /* ========= GETTERS ========= */
 

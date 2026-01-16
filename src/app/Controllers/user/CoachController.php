@@ -19,17 +19,19 @@ class CoachController extends Controler
             'coach_id' => Session::getSession('id')
         ];
 
+        
         $coashServ = new CoachService();
         $reponse = $coashServ->getAllAvaialibities($data);
 
         $coashBoking = $coashServ -> getAllBooking($data) ; 
 
-        var_dump($coashBoking) ; 
-        exit ; 
+        // var_dump($coashBoking) ; 
+        // exit ; 
 
 
         $data = [
             'availabilities' => $reponse,
+            'pendingBookings' => $coashBoking , 
             'statusColors' => [
                 'available' => 'bg-green-100 text-green-800',
                 'booked' => 'bg-yellow-100 text-yellow-800',
@@ -87,6 +89,13 @@ class CoachController extends Controler
 
     }
 
+    public function refusebooking () {
+        $booking_id = $_POST['booking_id'] ;
+
+        $coachService = new CoachService();
+        $coachService->refusebooking();
+
+    }
 
 
 }

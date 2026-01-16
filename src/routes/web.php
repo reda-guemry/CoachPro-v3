@@ -18,6 +18,12 @@ $router -> post('dhasbordcoach/removeavailibilty' , 'user\CoachController@remove
 $router -> post('sportif/getAvailabilityByDate' , 'user\SportifController@getAvailabilityByDate') ;
 $router -> post('sportif/create' , 'user\SportifController@createreservation') ; 
 
+$router -> post('booking/refuse' , 'user\SportifController@refusebooking') ; 
+$router -> post('booking/accept' , 'user\SportifController@acceptebooking') ; 
+
+
+
+
 
 
 
