@@ -22,8 +22,10 @@ class CoachController extends Controler
         $coashServ = new CoachService();
         $reponse = $coashServ->getAllAvaialibities($data);
 
-        // var_dump($reponse) ; 
-        // exit ; 
+        $coashBoking = $coashServ -> getAllBooking($data) ; 
+
+        var_dump($coashBoking) ; 
+        exit ; 
 
 
         $data = [

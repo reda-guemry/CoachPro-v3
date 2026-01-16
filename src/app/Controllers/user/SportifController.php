@@ -85,16 +85,16 @@ class SportifController extends Controler
         $data = [
             'coach_id' => $_POST['coach_id'],
             'sportif_id' => Session::getSession('id'),
-            'availability_id' => $_POST['seanseSelect'],
-            'status' => 'pending'
+            'status' => 'pending' , 
+            'availability_id' => $_POST['seanseSelect']
 
         ];
 
         $sportifService = new SportifService();
-        $reponse = $sportifService-> createreservation ($data);
+        $sportifService-> createreservation ($data);
 
 
-
+        header('Location: ../dhasbord') ; 
 
     }
 

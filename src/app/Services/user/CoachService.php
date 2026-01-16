@@ -3,6 +3,7 @@
 namespace src\app\Services\user;
 
 use src\app\DAO\AvailabilitesDAO;
+use src\app\DAO\BookingDAO ; 
 
 
 class CoachService
@@ -55,4 +56,13 @@ class CoachService
 
     }
 
+    public function getAllBooking($data) {
+
+    // var_dump($data) ; 
+    // exit ;
+
+        $bookingDAO = new BookingDao ; 
+        return $bookingDAO -> getall($data) ; 
+
+    }
 }

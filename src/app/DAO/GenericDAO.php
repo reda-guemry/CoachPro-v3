@@ -8,6 +8,8 @@ use PDO;
 use src\app\Models\User;
 use src\app\Models\Availabilite;
 use src\app\Models\Userdetail;
+use src\app\Models\Booking;
+
 
 abstract class GenericDAO
 {
@@ -17,7 +19,7 @@ abstract class GenericDAO
         'user_details' => Userdetail::class,
         'availabilities' => Availabilite::class,
         'bookings' => Booking::class,
-        'reviews' => Review::class , 
+        'reviews' => Review::class,
     ];
 
 
@@ -81,11 +83,12 @@ abstract class GenericDAO
         $columns = implode(', ', array_keys($data));
         $placeholder = implode(', ', array_fill(0, count($data), '?'));
 
-        // var_dump($columns , $placeholder) ; 
-        // exit ; 
 
 
         $sql = "INSERT INTO $table ($columns) VALUES ($placeholder)";
+
+        // var_dump($columns , $placeholder , $sql , array_values($data)) ; 
+        // exit ; 
 
         try {
 
@@ -95,7 +98,7 @@ abstract class GenericDAO
 
             $id = $pdo->lastInsertId();
 
-            // die ($id) ; 
+            // die ($id) ;  
 
             return $id;
 
@@ -148,6 +151,40 @@ abstract class GenericDAO
             return false;
         }
 
+    }
+
+    public function update($data, $condition)
+    {
+        $table = $this->getTablename();
+        $columns = [];
+        $values = [];
+        foreach ($data as $column => $value) {
+            $columns[] = " $column = ? ";
+            $values[] = $value;
+        }
+
+        $columns = implode(' ,', $columns);
+
+        $colCondition = array_key_first($condition);
+        $values[] = $condition[$colCondition];
+
+
+        $sql = "UPDATE $table SET $columns WHERE $colCondition = ? ";
+
+        // var_dump($sql , $values , $columns) ;
+        // exit ; 
+
+
+        try {
+            $pdo = Database::getInstance()->getConnect();
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->execute($values);
+
+        } catch (PDOException $e) {
+            die("Database connection failed: " . $e->getMessage());
+
+        }
     }
 
 }

@@ -33,12 +33,6 @@ class AuthentificationController extends Controler
             'password' => $_POST['password'] ?? '',
             'confirmPassword' => $_POST['confirmPassword'] ?? ''
         ];
-        if ($data['role'] === 'coach') {
-            $bio = trim($_POST['bio'] ?? '');
-            $experienceYears = $_POST['experienceYears'] ?? 0;
-            $certifications = trim($_POST['certifications'] ?? '');
-            $profilephoto = $_FILES['photo'];
-        }
 
         if ($data['role'] === 'coach') {
             $coachProfileData = [
@@ -69,11 +63,12 @@ class AuthentificationController extends Controler
     {
         $role = Session::getSession('role');
         if (isset($role)) {
-            // header('Location: dhasbord');
+            header('Location: dhasbord');
             exit();
         }
         $this->view('auth/login');
         exit();
+
     }
 
     public function login()
@@ -83,6 +78,9 @@ class AuthentificationController extends Controler
 
         $authService = new AuthentificationService();
         $result = $authService->login($email, $password);
+        
+        // var_dump($result) ; 
+        // exit ; 
 
         if (!$result['status']) {
             return $result;
@@ -91,6 +89,7 @@ class AuthentificationController extends Controler
         $user = $result['user'];
 
         // session_regenerate_id(true);
+
 
         Session::setSession('role', $user->getRole());
         Session::setSession('email', $user->getEmail());

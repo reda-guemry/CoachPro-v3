@@ -23,6 +23,14 @@ class Controler
     {
         $role = Session::getSession('role') ; 
 
+        // var_dump($role) ; 
+        // exit ;
+
+        if(empty($role)) { 
+            header('Location: login');
+            exit;
+        }
+
         if ($role == 'coach') {
             header('Location: dhasbordcoach');
             exit;

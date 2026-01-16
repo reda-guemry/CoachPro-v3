@@ -7,7 +7,7 @@ use src\config\Database;
 
 
 
-class ReservationDAO extends GenericDAO {
+class BookingDAO extends GenericDAO {
 
     public function getTablename() {
         return 'bookings' ;  
