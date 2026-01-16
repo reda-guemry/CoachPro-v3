@@ -17,7 +17,7 @@ abstract class GenericDAO
         'user_details' => Userdetail::class,
         'availabilities' => Availabilite::class,
         'bookings' => Booking::class,
-        'reviews' => Review::class
+        'reviews' => Review::class , 
     ];
 
 
@@ -33,22 +33,26 @@ abstract class GenericDAO
 
     }
 
-    public function getall(?array $id = null)
+    public function getall(?array $data = null)
     {
         $table = $this->getTablename();
         $params = [];
+        $sql = "SELECT * FROM $table ";
 
-        if ($id) {
-            $column = array_key_first($id);
 
-            $value = $id[$column];
-            $sql = "SELECT * FROM $table WHERE $column = ? ";
+        if (!empty($data)) {
+            $where = [];
 
-            $params = [$value];
+            foreach ($data as $column => $value) {
+                $where[] = " $column = ?";
+                $params[] = $value;
+            }
 
-        } else {
-            $sql = "SELECT * FROM $table ";
+            $sql .= ' WHERE' . implode(' AND ', $where);
+
         }
+        // var_dump($sql);
+        // exit;
 
         try {
             $pdo = Database::getInstance()->getConnect();
@@ -57,8 +61,8 @@ abstract class GenericDAO
 
             $result = $stmt->fetchALl(PDO::FETCH_CLASS, $this->getTargetClass());
 
-            // echo 'dkede' ; 
-            // var_dump ($result) ; 
+            // echo 'dkede';
+            // var_dump($result);
             // exit;
 
             return $result;
@@ -128,7 +132,7 @@ abstract class GenericDAO
         $column = array_key_first($id);
 
         $iddelete = $id[$column];
-        
+
         // var_dump($id, $column , $iddelete) ;
         // exit;
 

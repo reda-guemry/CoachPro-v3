@@ -3,243 +3,276 @@
 
 {% block content %}
 
-<div class="min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <i class="fas fa-dumbbell text-3xl text-purple-600 mr-3"></i>
-                    <span class="text-2xl font-bold text-gray-800">CoachPro</span>
-                </div>
-                <div class="flex items-center space-x-4">
-                    <span class="text-gray-700 font-medium">Bonjour, <span id="userName">Sportif</span></span>
-                    <form method="post">
-                        <button type="submit" name="action" value="logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </nav>
+	<div
+		class="min-h-screen">
+		<!-- Navbar -->
+		<nav class="bg-white shadow-lg">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between items-center h-16">
+					<div class="flex items-center">
+						<i class="fas fa-dumbbell text-3xl text-purple-600 mr-3"></i>
+						<span class="text-2xl font-bold text-gray-800">CoachPro</span>
+					</div>
+					<div class="flex items-center space-x-4">
+						<span class="text-gray-700 font-medium">Bonjour,
+							<span id="userName">Sportif</span>
+						</span>
+						<form method="post">
+							<button type="submit" name="action" value="logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
+								<i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</nav>
 
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">Réservations</p>
-                        <p class="text-3xl font-bold text-purple-600" id="totalBookings">0</p>
-                    </div>
-                    <div class="bg-purple-100 rounded-full p-3">
-                        <i class="fas fa-calendar-check text-2xl text-purple-600"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">En Attente</p>
-                        <p class="text-3xl font-bold text-yellow-600" id="pendingBookings">0</p>
-                    </div>
-                    <div class="bg-yellow-100 rounded-full p-3">
-                        <i class="fas fa-clock text-2xl text-yellow-600"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">Acceptées</p>
-                        <p class="text-3xl font-bold text-green-600" id="acceptedBookings">0</p>
-                    </div>
-                    <div class="bg-green-100 rounded-full p-3">
-                        <i class="fas fa-check-circle text-2xl text-green-600"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-gray-500 text-sm font-semibold">Coachs Disponibles</p>
-                        <p class="text-3xl font-bold text-blue-600" id="availableCoaches">0</p>
-                    </div>
-                    <div class="bg-blue-100 rounded-full p-3">
-                        <i class="fas fa-users text-2xl text-blue-600"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- Main Content -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold text-gray-800">
-                <i class="fas fa-user-tie text-purple-600 mr-2"></i>Nos Coachs
-            </h2>
-            <div class="relative">
-                <input type="text" id="searchCoach" placeholder="Rechercher..." class="pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
-                <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
-            </div>
-        </div>
+			<div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">Réservations</p>
+							<p class="text-3xl font-bold text-purple-600" id="totalBookings">0</p>
+						</div>
+						<div class="bg-purple-100 rounded-full p-3">
+							<i class="fas fa-calendar-check text-2xl text-purple-600"></i>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">En Attente</p>
+							<p class="text-3xl font-bold text-yellow-600" id="pendingBookings">0</p>
+						</div>
+						<div class="bg-yellow-100 rounded-full p-3">
+							<i class="fas fa-clock text-2xl text-yellow-600"></i>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">Acceptées</p>
+							<p class="text-3xl font-bold text-green-600" id="acceptedBookings">0</p>
+						</div>
+						<div class="bg-green-100 rounded-full p-3">
+							<i class="fas fa-check-circle text-2xl text-green-600"></i>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="text-gray-500 text-sm font-semibold">Coachs Disponibles</p>
+							<p class="text-3xl font-bold text-blue-600" id="availableCoaches">0</p>
+						</div>
+						<div class="bg-blue-100 rounded-full p-3">
+							<i class="fas fa-users text-2xl text-blue-600"></i>
+						</div>
+					</div>
+				</div>
+			</div>
 
-        <div id="coachsList" class="space-y-4 max-h-96 overflow-y-auto">
+			<!-- Main Content -->
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+				<div class="lg:col-span-2 bg-white rounded-xl shadow-lg p-6">
+					<div class="flex justify-between items-center mb-6">
+						<h2 class="text-2xl font-bold text-gray-800">
+							<i class="fas fa-user-tie text-purple-600 mr-2"></i>Nos Coachs
+						</h2>
+						<div class="relative">
+							<input type="text" id="searchCoach" placeholder="Rechercher..." class="pl-10 pr-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
+							<i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+						</div>
+					</div>
 
-            {% for coach in coachs %}
-                {% for deatilCoach in coachsDeatail %}
-                    {% if deatilCoach %} 
-                <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-purple-600 transition duration-300">
-                    <div class="flex items-start space-x-4">
-                        <img src="{{ coach.photo }}" alt="{{ coach.firstName }} {{ coach.lastName }}" class="w-20 h-20 rounded-full object-cover">
-                        <div class="flex-1">
-                            <h3 class="text-lg font-bold text-gray-800">{{ coach.firstName }} {{ coach.lastName }}</h3>
-                            <p class="text-sm text-gray-600">
-                                <i class="fas fa-trophy text-purple-600 mr-1"></i>
-                                {% for sport in coach.sports %}
-                                    {{ sport.sportName }}
-                                {% endfor %}
-                            </p>
-                            <p class="text-sm text-gray-600"><i class="fas fa-certificate text-purple-600 mr-1"></i>{{ coach.certification }} </p>
-                            <div class="flex items-center mt-2">
-                                <span class="text-yellow-500 mr-1"><i class="fas fa-star"></i></span>
-                                <span class="text-sm font-semibold">N/A</span>
-                                <span class="text-sm text-gray-500 ml-2">{{ coach.experienceYear }} ans d'exp.</span>
-                            </div>
-                        </div>
-                        <button onclick="openBookingModal({{ coach.userId }}, '{{ coach.firstName }} {{ coach.lastName }}')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition duration-300">
-                            <i class="fas fa-calendar-plus mr-1"></i>Réserver
-                        </button>
-                    </div>
-                </div>
-            {% else %}
-                <p>Aucun coach trouvé.</p>
-            {% endfor %}
-        </div>
-    </div>
+					<div id="coachsList" class="space-y-4 max-h-96 overflow-y-auto">
 
-    <div class="bg-white rounded-xl shadow-lg p-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">
-            <i class="fas fa-calendar-alt text-purple-600 mr-2"></i>Mes Réservations
-        </h2>
-        <div id="bookingsList" class="space-y-4 max-h-96 overflow-y-auto">
-            {% for booking in result %}
-                <div class="border-2 border-gray-200 rounded-lg p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        {# هنا نستخدم الـ Getters الخاصة بالمدرب المرتبط بالحجز #}
-                        <h4 class="font-bold text-gray-800">{{ booking.coach.firstName }} {{ booking.coach.lastName }}</h4>
-                        <span class="px-2 py-1 rounded text-xs font-semibold {{ statusColors[booking.status] }}">
-                            {{ booking.status }}
-                        </span>
-                    </div>
+						{% for coach in coachs %}
+							{% set hasDetail = false %}
 
-                    <p class="text-sm text-gray-600">
-                        <i class="fas fa-calendar mr-1"></i>{{ booking.date }}
-                    </p>
-                    
-                    <div class="flex space-x-2 mt-3">
-                        {% if booking.status == 'accepted' %}
-                            <button onclick="openReviewModal({{ booking.id }}, {{ booking.userId }})" class="w-full flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs transition duration-300">
-                                <i class="fas fa-star mr-1"></i>Avis
-                            </button>
-                        {% endif %}
+							{% for detailCoach in coachsDeatail %}
+								{% if detailCoach.coachId == coach.userId %}
+									{% set hasDetail = true %}
 
-                        {% if booking.status in ['pending', 'accepted'] %}
-                             <form method="post" class="flex-1 h-full">
-                                <input type="hidden" name="bookingId" value="{{ booking.id }}">
-                                <button type="submit" name="action" value="annulerReservation" class="w-full bg-red-500 text-white px-3 py-1 rounded text-xs">
-                                    <i class="fas fa-times mr-1"></i>Annuler
-                                </button>
-                            </form>
-                        {% endif %}
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-    </div>
+									<div class="border-2 border-gray-200 rounded-lg p-4 hover:border-purple-600 transition duration-300">
+										<div class="flex items-start space-x-4">
+											<img src="src/public/assets/image/{{ detailCoach.photo }}" alt="{{ coach.firstName }} {{ coach.lastName }}" class="w-20 h-20 rounded-full object-cover">
 
-    <!-- Booking Modal -->
-    <div id="bookingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Réserver une séance</h3>
-                <button onclick="closeBookingModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
-            </div>
-            <form id="bookingForm" method="post" >
-                <input type="hidden" id="selectedCoachId" name="coach_id">
-                <input type="hidden" name="action" value="addReservation">
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-semibold mb-2">Coach</label>
-                    <p id="selectedCoachName" class="text-gray-600 font-medium"></p>
-                </div>
-                <div class="mb-4">
-                    <label for="bookingDate" class="block text-gray-700 font-semibold mb-2">
-                        <i class="fas fa-calendar mr-2 text-purple-600"></i>Date
-                    </label>
-                    <input type="date"  id="bookingDate" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
-                </div>
-                <div class="mb-6">
-                    <label for="availabilitySelect" class="block text-gray-700 font-semibold mb-2">
-                        <i class="fas fa-clock mr-2 text-purple-600"></i>Créneau disponible
-                    </label>
-                    <select id="availabilitySelect" name="seanseSelect" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
-                        <option value="">Sélectionnez d'abord une date</option>
-                    </select>
-                </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300">
-                    <i class="fas fa-check mr-2"></i>Confirmer la réservation
-                </button>
-            </form>
-        </div>
-    </div>
+											<div class="flex-1">
+												<h3 class="text-lg font-bold text-gray-800">
+													{{ coach.firstName }}
+													{{ coach.lastName }}
+												</h3>
 
-    <!-- Review Modal -->
-    <div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Laisser un avis</h3>
-                <button onclick="closeReviewModal()" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-2xl"></i>
-                </button>
-            </div>
-            <form id="reviewForm" method="post">
-                <input type="hidden" id="reviewBookingId" name="reviewBookingId">
-                <input type="hidden" id="coash_id" name="coash_id">
-                <div class="mb-4">
-                    <label class="block text-gray-700 font-semibold mb-2">
-                        <i class="fas fa-star mr-2 text-yellow-500"></i>Note
-                    </label>
-                    <div class="flex space-x-2" id="ratingStars">
-                        <i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="1"></i>
-                        <i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="2"></i>
-                        <i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="3"></i>
-                        <i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="4"></i>
-                        <i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="5"></i>
-                    </div>
-                    <input type="hidden" id="ratingValue" name="ratingValue" required>
-                </div>
-                <div class="mb-6">
-                    <label for="reviewComment" class="block text-gray-700 font-semibold mb-2">
-                        <i class="fas fa-comment mr-2 text-purple-600"></i>Commentaire
-                    </label>
-                    <textarea id="reviewComment" name="reviewComment" rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600" placeholder="Partagez votre expérience..."></textarea>
-                </div>
-                <button type="submit" name="action" value="reviewform" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300">
-                    <i class="fas fa-paper-plane mr-2"></i>Envoyer l'avis
-                </button>
-            </form>
-        </div>
-    </div>
+												<p class="text-sm text-gray-600">
+													<i class="fas fa-trophy text-purple-600 mr-1"></i>
+													{% for sport in coach.sports %}
+														{{ sport.sportName }}
+													{% endfor %}
+												</p>
 
-    {# <script src="../JS/dashbordsportif.js"></script> #}
+												<p class="text-sm text-gray-600">
+													<i class="fas fa-certificate text-purple-600 mr-1"></i>
+													{{ detailCoach.certification }}
+												</p>
 
-</div>
+												<div class="flex items-center mt-2">
+													<span class="text-yellow-500 mr-1">
+														<i class="fas fa-star"></i>
+													</span>
+													<span class="text-sm font-semibold">N/A</span>
+													<span class="text-sm text-gray-500 ml-2">
+														{{ detailCoach.experienceYear }}
+														ans d'exp.
+													</span>
+												</div>
+											</div>
+
+											<button onclick="openBookingModal({{ coach.userId }}, '{{ coach.firstName }} {{ coach.lastName }}')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition duration-300">
+												<i class="fas fa-calendar-plus mr-1"></i>
+												Réserver
+											</button>
+										</div>
+									</div>
+
+								{% endif %}
+							{% endfor %}
+
+							{% if not hasDetail %}
+								<p class="text-gray-500">Aucun détail pour ce coach.</p>
+							{% endif %}
+						{% endfor %}
+
+					</div>
+				</div>
+
+				<div class="bg-white rounded-xl shadow-lg p-6">
+					<h2 class="text-2xl font-bold text-gray-800 mb-6">
+						<i class="fas fa-calendar-alt text-purple-600 mr-2"></i>Mes Réservations
+					</h2>
+					<div id="bookingsList" class="space-y-4 max-h-96 overflow-y-auto">
+						{% for booking in result %}
+							<div class="border-2 border-gray-200 rounded-lg p-4">
+								<div
+									class="flex justify-between items-start mb-2">
+									{# هنا نستخدم الـ Getters الخاصة بالمدرب المرتبط بالحجز #}
+									<h4 class="font-bold text-gray-800">{{ booking.coach.firstName }}
+										{{ booking.coach.lastName }}</h4>
+									<span class="px-2 py-1 rounded text-xs font-semibold {{ statusColors[booking.status] }}">
+										{{ booking.status }}
+									</span>
+								</div>
+
+								<p class="text-sm text-gray-600">
+									<i class="fas fa-calendar mr-1"></i>
+									{{ booking.date }}
+								</p>
+
+								<div class="flex space-x-2 mt-3">
+									{% if booking.status == 'accepted' %}
+										<button onclick="openReviewModal({{ booking.id }}, {{ booking.userId }})" class="w-full flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs transition duration-300">
+											<i class="fas fa-star mr-1"></i>Avis
+										</button>
+									{% endif %}
+
+									{% if booking.status in ['pending', 'accepted'] %}
+										<form method="post" class="flex-1 h-full">
+											<input type="hidden" name="bookingId" value="{{ booking.id }}">
+											<button type="submit" name="action" value="annulerReservation" class="w-full bg-red-500 text-white px-3 py-1 rounded text-xs">
+												<i class="fas fa-times mr-1"></i>Annuler
+											</button>
+										</form>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Booking Modal -->
+		<div id="bookingModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+			<div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+				<div class="flex justify-between items-center mb-6">
+					<h3 class="text-2xl font-bold text-gray-800">Réserver une séance</h3>
+					<button onclick="closeBookingModal()" class="text-gray-500 hover:text-gray-700">
+						<i class="fas fa-times text-2xl"></i>
+					</button>
+				</div>
+				<form id="bookingForm" action='sportif/create' method="post">
+					<input type="hidden" id="selectedCoachId" name="coach_id">
+					<input type="hidden" name="action" value="addReservation">
+					<div class="mb-4">
+						<label class="block text-gray-700 font-semibold mb-2">Coach</label>
+						<p id="selectedCoachName" class="text-gray-600 font-medium"></p>
+					</div>
+					<div class="mb-4">
+						<label for="bookingDate" class="block text-gray-700 font-semibold mb-2">
+							<i class="fas fa-calendar mr-2 text-purple-600"></i>Date
+						</label>
+						<input type="date" id="bookingDate" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
+					</div>
+					<div class="mb-6">
+						<label for="availabilitySelect" class="block text-gray-700 font-semibold mb-2">
+							<i class="fas fa-clock mr-2 text-purple-600"></i>Créneau disponible
+						</label>
+						<select id="availabilitySelect" name="seanseSelect" required class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600">
+							<option value="">Sélectionnez d'abord une date</option>
+						</select>
+					</div>
+					<button type="submit" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300">
+						<i class="fas fa-check mr-2"></i>Confirmer la réservation
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<!-- Review Modal -->
+		<div id="reviewModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+			<div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8">
+				<div class="flex justify-between items-center mb-6">
+					<h3 class="text-2xl font-bold text-gray-800">Laisser un avis</h3>
+					<button onclick="closeReviewModal()" class="text-gray-500 hover:text-gray-700">
+						<i class="fas fa-times text-2xl"></i>
+					</button>
+				</div>
+				<form id="reviewForm" method="post">
+					<input type="hidden" id="reviewBookingId" name="reviewBookingId">
+					<input type="hidden" id="coash_id" name="coash_id">
+					<div class="mb-4">
+						<label class="block text-gray-700 font-semibold mb-2">
+							<i class="fas fa-star mr-2 text-yellow-500"></i>Note
+						</label>
+						<div class="flex space-x-2" id="ratingStars">
+							<i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="1"></i>
+							<i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="2"></i>
+							<i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="3"></i>
+							<i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="4"></i>
+							<i class="fas fa-star text-3xl text-gray-300 cursor-pointer hover:text-yellow-500" data-rating="5"></i>
+						</div>
+						<input type="hidden" id="ratingValue" name="ratingValue" required>
+					</div>
+					<div class="mb-6">
+						<label for="reviewComment" class="block text-gray-700 font-semibold mb-2">
+							<i class="fas fa-comment mr-2 text-purple-600"></i>Commentaire
+						</label>
+						<textarea id="reviewComment" name="reviewComment" rows="4" class="w-full px-4 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-purple-600" placeholder="Partagez votre expérience..."></textarea>
+					</div>
+					<button type="submit" name="action" value="reviewform" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition duration-300">
+						<i class="fas fa-paper-plane mr-2"></i>Envoyer l'avis
+					</button>
+				</form>
+			</div>
+		</div>
+
+    <script src="/CoachPro-v3/src/public/assets/js/dashbordsportif.js"></script>
+
+	</div>
 
 
 {% endblock %}

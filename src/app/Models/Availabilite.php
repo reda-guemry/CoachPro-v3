@@ -48,40 +48,34 @@ class Availabilite
        SETTERS
     ======================= */
 
-    public function setAvailabilityId(int $availability_id): self
+    public function setAvailabilityId(int $availability_id)
     {
         $this->availability_id = $availability_id;
-        return $this;
     }
     
 
-    public function setCoachId(int $coach_id): self
+    public function setCoachId(int $coach_id)
     {
         $this->coach_id = $coach_id;
-        return $this;
     }
 
-    public function setAvailabilitesDate(string $availabilities_date): self
+    public function setAvailabilitesDate(string $availabilities_date)
     {
         $this->availabilities_date = $availabilities_date;
-        return $this;
     }
 
-    public function setStartTime(string $start_time): self
+    public function setStartTime(string $start_time)
     {
         $this->start_time = $start_time;
-        return $this;
     }
 
-    public function setEndTime(string $end_time): self
+    public function setEndTime(string $end_time)
     {
         $this->end_time = $end_time;
-        return $this;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(string $status)
     {
         $this->status = $status;
-        return $this;
     }
 }

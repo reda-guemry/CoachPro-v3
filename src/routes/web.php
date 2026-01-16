@@ -15,5 +15,9 @@ $router -> get('dhasbord' , 'user\SportifController@index') ;
 $router -> post('dhasbordcoach/addavailibiliter' , 'user\CoachController@createNewAvail') ;
 $router -> post('dhasbordcoach/removeavailibilty' , 'user\CoachController@removeavail') ;
 
+$router -> post('sportif/getAvailabilityByDate' , 'user\SportifController@getAvailabilityByDate') ;
+$router -> post('sportif/create' , 'user\SportifController@createreservation') ; 
+
+
 
 
