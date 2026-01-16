@@ -52,6 +52,7 @@ class CoachService
         $coachDAO = new AvailabilitesDAO;
         $coachDAO -> delete($data) ;
 
+
     }
 
 }

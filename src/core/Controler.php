@@ -28,7 +28,7 @@ class Controler
             exit;
         }
 
-        header('Location: dashbord');
+        header('Location: dhasbord');
 
     }
 

@@ -7,6 +7,7 @@ use src\config\Database;
 use PDO;
 use src\app\Models\User;
 use src\app\Models\Availabilite;
+use src\app\Models\Userdetail;
 
 abstract class GenericDAO
 {
@@ -56,6 +57,7 @@ abstract class GenericDAO
 
             $result = $stmt->fetchALl(PDO::FETCH_CLASS, $this->getTargetClass());
 
+            // echo 'dkede' ; 
             // var_dump ($result) ; 
             // exit;
 
