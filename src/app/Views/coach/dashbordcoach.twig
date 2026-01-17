@@ -113,8 +113,7 @@
 						<h2 class="text-2xl font-bold text-gray-800 mb-6">
 							<i class="fas fa-inbox text-yellow-600 mr-2"></i>Demandes en Attente
 						</h2>
-						<div
-							id="pendingRequestsList" class="space-y-4">
+						<div id="pendingRequestsList" class="space-y-4">
 							{% for booking in pendingBookings %}
 								<div class="border-2 border-yellow-200 bg-yellow-50 rounded-lg p-4 mb-4">
 									<div class="flex justify-between items-start mb-3">
@@ -166,34 +165,39 @@
 							<i class="fas fa-check-circle text-green-600 mr-2"></i>Séances Validées
 						</h2>
 						<div id="acceptedSessionsList" class="space-y-4 max-h-96 overflow-y-auto">
-							<?php foreach ($accceptseanse as $session) : ?>
+							{% for session in coachacceptebooking %}
+								<div class="border-2 border-green-200 bg-green-50 rounded-lg p-4 mb-3">
+									<div class="flex justify-between items-start">
+										<div>
+											<h4 class="font-bold text-gray-800">
+												<i class="fas fa-user text-purple-600 mr-2"></i>
+												{{ session.sportif_first_name }}
+												{{ session.sportif_last_name }}
+											</h4>
 
-							<div class="border-2 border-green-200 bg-green-50 rounded-lg p-4 mb-3">
-								<div class="flex justify-between items-start">
-									<div>
-										<h4 class="font-bold text-gray-800">
-											<i class="fas fa-user text-purple-600 mr-2"></i>
-											<?= $session['first_name'] . ' ' . $session['last_name']; ?>
-										</h4>
+											<p class="text-sm text-gray-600 mt-1">
+												<i class="fas fa-calendar mr-1"></i>
+												{{ session.availabilities_date }}
+											</p>
 
-										<p class="text-sm text-gray-600 mt-1">
-											<i class="fas fa-calendar mr-1"></i>
-											<?= $session['availabilites_date']; ?>
-										</p>
+											<p class="text-sm text-gray-600">
+												<i class="fas fa-clock mr-1"></i>
+												{{ session.start_time }}
+												-
+												{{ session.end_time }}
+											</p>
+										</div>
 
-										<p class="text-sm text-gray-600">
-											<i class="fas fa-clock mr-1"></i>
-											<?= $session['start_time'] . ' - ' . $session['end_time']; ?>
-										</p>
+										<span class="px-3 py-1 bg-green-200 text-green-800 rounded-full text-xs font-semibold">
+											<i class="fas fa-check-circle mr-1"></i>Validée
+										</span>
 									</div>
-
-									<span class="px-3 py-1 bg-green-200 text-green-800 rounded-full text-xs font-semibold">
-										<i class="fas fa-check-circle mr-1"></i>Validée
-									</span>
 								</div>
-							</div>
-
-							<?php endforeach; ?>
+							{% else %}
+								<div class="text-center text-gray-500 py-4">
+									Aucune session acceptée pour le moment.
+								</div>
+							{% endfor %}
 						</div>
 					</div>
 				</div>

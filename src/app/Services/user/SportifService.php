@@ -59,5 +59,19 @@ class SportifService
 
     }
 
+    public function  getallbooking($id) {
+
+        $bookingDAO = new BookingDAO() ; 
+        return $bookingDAO -> getsportifbooking($id) ;
+        
+    }
+
+    public function annulerreservation($data) {
+        $bookingDAO = new BookingDAO() ; 
+        
+        $bookingDAO -> delete($data) ; 
+        
+
+    }
 
 }

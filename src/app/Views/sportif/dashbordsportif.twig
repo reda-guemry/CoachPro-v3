@@ -155,13 +155,15 @@
 						<i class="fas fa-calendar-alt text-purple-600 mr-2"></i>Mes Réservations
 					</h2>
 					<div id="bookingsList" class="space-y-4 max-h-96 overflow-y-auto">
-						{% for booking in result %}
+						{% for booking in sportifbooking %}
 							<div class="border-2 border-gray-200 rounded-lg p-4">
-								<div
-									class="flex justify-between items-start mb-2">
-									{# هنا نستخدم الـ Getters الخاصة بالمدرب المرتبط بالحجز #}
-									<h4 class="font-bold text-gray-800">{{ booking.coach.firstName }}
-										{{ booking.coach.lastName }}</h4>
+
+								<div class="flex justify-between items-start mb-2">
+									<h4 class="font-bold text-gray-800">
+										{{ booking.first_name }}
+										{{ booking.last_name }}
+									</h4>
+
 									<span class="px-2 py-1 rounded text-xs font-semibold {{ statusColors[booking.status] }}">
 										{{ booking.status }}
 									</span>
@@ -169,24 +171,33 @@
 
 								<p class="text-sm text-gray-600">
 									<i class="fas fa-calendar mr-1"></i>
-									{{ booking.date }}
+									{{ booking.availabilities_date }}
+								</p>
+
+								<p class="text-sm text-gray-600">
+									<i class="fas fa-clock mr-1"></i>
+									{{ booking.start_time }}
+									-
+									{{ booking.end_time }}
 								</p>
 
 								<div class="flex space-x-2 mt-3">
+
 									{% if booking.status == 'accepted' %}
-										<button onclick="openReviewModal({{ booking.id }}, {{ booking.userId }})" class="w-full flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs transition duration-300">
+										<button onclick="openReviewModal({{ booking.booking_id }}, {{ booking.user_id }})" class="w-full flex-1 bg-purple-600 hover:bg-purple-700 text-white px-3 py-1 rounded text-xs transition duration-300">
 											<i class="fas fa-star mr-1"></i>Avis
 										</button>
 									{% endif %}
 
 									{% if booking.status in ['pending', 'accepted'] %}
-										<form method="post" class="flex-1 h-full">
-											<input type="hidden" name="bookingId" value="{{ booking.id }}">
-											<button type="submit" name="action" value="annulerReservation" class="w-full bg-red-500 text-white px-3 py-1 rounded text-xs">
+										<form method="post" action='sportif/annulereser' class="flex-1 h-full">
+											<input type="hidden" name="bookingId" value="{{ booking.booking_id }}">
+											<button type="submit" name="action" value="annulerReservation" class="w-full h-full flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition duration-300">
 												<i class="fas fa-times mr-1"></i>Annuler
 											</button>
 										</form>
 									{% endif %}
+
 								</div>
 							</div>
 						{% endfor %}
@@ -270,7 +281,7 @@
 			</div>
 		</div>
 
-    <script src="/CoachPro-v3/src/public/assets/js/dashbordsportif.js"></script>
+		<script src="/CoachPro-v3/src/public/assets/js/dashbordsportif.js"></script>
 
 	</div>
 

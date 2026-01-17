@@ -16,6 +16,7 @@ class SportifController extends Controler
     public function index()
     {
         $data = ['role' => 'coach'];
+        $sportifID = ['sportif_id' => Session::getSession('id')];
         $newCoachDAO = new SportifService();
         $coach = $newCoachDAO->getAllCoach($data);
 
@@ -23,16 +24,27 @@ class SportifController extends Controler
         $newCoachDeatailsSERV = new UserdeatilService();
         $coacheDetails = $newCoachDeatailsSERV->getalldetailscoaches();
 
+        $sportifbooking = new SportifService();
+        $bookings = $sportifbooking->getallbooking($sportifID);
+
         // foreach ($coacheDetails as $coach) {
         //     echo $coach -> getPhoto() ;
         // }
 
-        // var_dump(value: $coach  ) ; 
+        // var_dump( $bookings  ) ; 
         // exit ; 
 
         $data = [
             'coachs' => $coach,
-            'coachsDeatail' => $coacheDetails
+            'coachsDeatail' => $coacheDetails,
+            'sportifbooking' => $bookings,
+            'statusColors' => [
+                "pending" => 'bg-yellow-100 text-yellow-800',
+                "accepted" => 'bg-green-100 text-green-800',
+                "rejected" => 'bg-red-100 text-red-800',
+                "cancelled" => 'bg-gray-100 text-gray-800'
+
+            ]
         ];
 
         $this->view('sportif/dashbordsportif', $data);
@@ -85,17 +97,30 @@ class SportifController extends Controler
         $data = [
             'coach_id' => $_POST['coach_id'],
             'sportif_id' => Session::getSession('id'),
-            'status' => 'pending' , 
+            'status' => 'pending',
             'availability_id' => $_POST['seanseSelect']
 
         ];
 
         $sportifService = new SportifService();
-        $sportifService-> createreservation ($data);
+        $sportifService->createreservation($data);
 
 
-        header('Location: ../dhasbord') ; 
+        header('Location: ../dhasbord');
 
     }
+
+
+    public function annulerreservation() {
+        $data = ['booking_id' => $_POST['bookingId']]; 
+
+        $sportifService = new SportifService() ; 
+        $sportifService -> annulerreservation($data);
+
+        header('Location: ../dhasbord') ; 
+        exit ; 
+
+    }
+
 
 }

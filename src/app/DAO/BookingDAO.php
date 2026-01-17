@@ -16,7 +16,7 @@ class BookingDAO extends GenericDAO
         return 'bookings';
     }
 
-    public function getbookings($id)
+    public function getbookingbystatus($id , $status)
     {
         $pdo = Database::getInstance()->getConnect();
         $sql = "SELECT b.booking_id,
@@ -29,20 +29,41 @@ class BookingDAO extends GenericDAO
                 FROM bookings b 
                 inner join users u on u.user_id = b.sportif_id 
                 inner join availabilities av on b.availability_id = av.availability_id
-                WHERE b.coach_id = ? AND b.status = 'pending' ";
+                WHERE b.coach_id = ? AND b.status = ? ";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$id]);
+        $stmt->execute([$id , $status]);
 
         $reponse = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // var_dump($reponse);
         // exit;
 
-        return $reponse ; 
+        return $reponse;
 
     }
 
+    public function getsportifbooking($id) {
+        $pdo = Database::getInstance()->getConnect();
+        $sql = "SELECT u.user_id , u.first_name , u.last_name , b.booking_id , b.status , a.availabilities_date , a.start_time , a.end_time
+                    FROM users u 
+                    INNER JOIN bookings b ON u.user_id = b.coach_id 
+                    INNER JOIN availabilities a ON a.availability_id = b.availability_id
+                    WHERE b.sportif_id = ?";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id['sportif_id']]);
+
+        $reponse = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // var_dump($reponse);
+        // exit;
+
+        return $reponse;
+
+
+
+    }
 
 
 

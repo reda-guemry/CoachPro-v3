@@ -21,6 +21,9 @@ $router -> post('sportif/create' , 'user\SportifController@createreservation') ;
 $router -> post('booking/refuse' , 'user\CoachController@refusebooking') ; 
 $router -> post('booking/accept' , 'user\CoachController@acceptebooking') ; 
 
+$router -> post('sportif/annulereser' , 'user\SportifController@annulerreservation') ; 
+
+
 
 
 
