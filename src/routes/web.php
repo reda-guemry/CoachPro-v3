@@ -25,6 +25,7 @@ $router -> post('sportif/annulereser' , 'user\SportifController@annulerreservati
 
 $router -> post('sportif/createcommentaire' , 'user\SportifController@createcommentaire') ; 
 
+$router -> get('logout' , 'auth\AuthentificationController@logout' ) ; 
 
 
 

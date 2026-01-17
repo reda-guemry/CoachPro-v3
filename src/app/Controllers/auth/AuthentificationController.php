@@ -69,6 +69,7 @@ class AuthentificationController extends Controler
 
         if ($reponse) {
             header('Location: login');
+            exit ; 
         } else {
             die('hmaaaaar hadche ghalat');
         }
@@ -99,6 +100,8 @@ class AuthentificationController extends Controler
         // exit ; 
 
         if (!$result['status']) {
+            $this->checkrole();
+
             return $result;
         }
 
@@ -120,6 +123,12 @@ class AuthentificationController extends Controler
         // die ($user -> getRole() ) ;
 
         $this->checkrole();
+    }
+
+    public function logout() {
+        $_SESSION = [];
+        session_destroy();
+        header('Location: /CoachPro-v3') ; 
     }
 
 }

@@ -36,6 +36,7 @@ class SportifController extends Controler
         $data = [
             'coachs' => $coach,
             'sportifbooking' => $bookings,
+            'userRole' => Session::getSession('role') , 
             'statusColors' => [
                 "pending" => 'bg-yellow-100 text-yellow-800',
                 "accepted" => 'bg-green-100 text-green-800',

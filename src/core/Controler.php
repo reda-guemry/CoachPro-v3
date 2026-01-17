@@ -26,7 +26,7 @@ class Controler
         // var_dump($role) ; 
         // exit ;
 
-        if(empty($role)) { 
+        if(empty($role)) {
             header('Location: login');
             exit;
         }

@@ -1,32 +1,47 @@
 <nav class="bg-white shadow-lg">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex justify-between items-center h-16">
-			<div class="flex items-center">
+			<a href='/CoachPro-v3/' class="flex items-center">
 				<i class="fas fa-dumbbell text-3xl text-purple-600 mr-3"></i>
 				<span class="text-2xl font-bold text-gray-800">CoachPro</span>
-			</div>
+			</a>
 			<div class="flex items-center space-x-4">
-				<a href="coashprofile.php" class="text-gray-700 hover:text-purple-600 font-medium transition duration-300">
-					<i class="fas fa-user-circle mr-1"></i>Mon Profil
-				</a>
-				<span class="text-gray-700 font-medium">Bonjour,
-					<span id="coachName">Coach</span>
-				</span>
-				<form method="post">
-					<button type="submit" name="action" value="logout" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg transition duration-300">
-						<i class="fas fa-sign-out-alt mr-2"></i>Déconnexion
-					</button>
-				</form>
+				<div class="flex items-center space-x-4">
+					{% if userRole %}
 
-				{% if isLoggedin  %}
-					Hello
-					{{name}}
-				{% else %}
-					<a href="/CoachPro-v3/login" class="text-white hover:text-purple-200 px-3 py-2 rounded-md">Login</a>
-					<a href="/CoachPro-v3/register" class="bg-white text-purple-600 px-4 py-2 rounded-md hover:bg-purple-50">Register</a>
-				{% endif  %}
+						<div class="flex items-center gap-4">
+							<span class="text-gray-700 font-medium">
+								{% if userRole == 'coach' %}
+									<a href="coashprofile.php" class="text-gray-700 hover:text-purple-600 font-medium transition duration-300">
+										<i class="fas fa-user-circle mr-1"></i>Mon Profil
+									</a>
+									<a href="coashprofile.php" class="text-gray-700 hover:text-purple-600 font-medium transition duration-300">
+										<i class="fas fa-user-circle mr-1"></i>Mon Profil
+									</a>
+									Bonjour,
+									<span class="text-purple-600 font-bold">Coach</span>
+								{% elseif userRole == 'sportif' %}
+									Bonjour,
+									<span class="text-purple-600 font-bold">Sportif</span>
+								{% endif %}
+							</span>
+							<a href="logout" class="border border-red-500 text-red-500 hover:bg-red-50 px-3 py-2 rounded-md transition duration-300 text-sm">
+								<i class="fas fa-sign-out-alt"></i>
+								Déconnexion
+							</a>
+						</div>
 
-				
+					{% else %}
+
+						<a href="/CoachPro-v3/login" class="text-gray-700 font-medium hover:text-purple-600 px-3 py-2 rounded-md transition duration-300">
+							Login
+						</a>
+						<a href="/CoachPro-v3/register" class="bg-purple-600 text-white font-medium px-4 py-2 rounded-md hover:bg-purple-700 transition duration-300 shadow-md">
+							Register
+						</a>
+
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	</div>
