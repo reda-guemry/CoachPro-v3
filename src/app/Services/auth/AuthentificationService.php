@@ -3,13 +3,14 @@
 namespace src\app\Services\auth;
 
 use src\app\DAO\auth\AuthentificationDAO;
+use src\app\DAO\CoachsportDAO;
 use src\app\DAO\SportDAO;
 use src\app\DAO\user\UserdetailDAO;
 
 class AuthentificationService
 {
 
-    public function register(array $data, ?array $coachProfileData = null)
+    public function register(array $data, ?array $coachProfileData = null, ?array $coachSport = null)
     {
 
         $authDAO = new AuthentificationDAO();
@@ -69,11 +70,23 @@ class AuthentificationService
             $uDetailDAO = new UserdetailDAO();
             $uDetailDAO->create($coachProfileData);
 
+            // $coachSport['coach_id'] = $userId ;
+
+            $sports = new CoachsportDAO();
+
+            foreach ($coachSport['sports'] as $sport) {
+                $csport = [
+                    'sport_id' => $sport,
+                    'coach_id' => $userId
+                ];
+                $sports->create($csport);
+            }
+
+            // exit;
+
         }
 
-
-        return true;
-
+        return $userId;
     }
 
     private function moveprofilephoto($file)
@@ -129,8 +142,8 @@ class AuthentificationService
 
         if (password_verify($password, $user->getPassword())) {
             return [
-                'status' => true , 
-                'user' => $user 
+                'status' => true,
+                'user' => $user
             ];
         }
 
@@ -140,11 +153,12 @@ class AuthentificationService
         ];
     }
 
-    public function getsports() {
-        $sportDAO = new SportDAO() ; 
-        return $sportDAO -> getall() ; 
-        
-        
+    public function getsports()
+    {
+        $sportDAO = new SportDAO();
+        return $sportDAO->getall();
+
+
     }
 
 }

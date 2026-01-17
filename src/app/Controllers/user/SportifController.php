@@ -15,17 +15,16 @@ class SportifController extends Controler
 
     public function index()
     {
-        $data = ['role' => 'coach'];
+        // $data = ['role' => 'coach'];
         $sportifID = ['sportif_id' => Session::getSession('id')];
         $newCoachDAO = new SportifService();
-        $coach = $newCoachDAO->getAllCoach($data);
 
-
-        $newCoachDeatailsSERV = new UserdeatilService();
-        $coacheDetails = $newCoachDeatailsSERV->getalldetailscoaches();
+        $coach = $newCoachDAO->getAllCoach();
 
         $sportifbooking = new SportifService();
         $bookings = $sportifbooking->getallbooking($sportifID);
+
+
 
         // foreach ($coacheDetails as $coach) {
         //     echo $coach -> getPhoto() ;
@@ -36,7 +35,6 @@ class SportifController extends Controler
 
         $data = [
             'coachs' => $coach,
-            'coachsDeatail' => $coacheDetails,
             'sportifbooking' => $bookings,
             'statusColors' => [
                 "pending" => 'bg-yellow-100 text-yellow-800',

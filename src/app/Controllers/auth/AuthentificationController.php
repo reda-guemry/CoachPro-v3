@@ -27,10 +27,10 @@ class AuthentificationController extends Controler
         // exit ; 
 
         $data = [
-            'sports' => $sports 
-        ] ;
+            'sports' => $sports
+        ];
 
-        $this->view('auth/register' , $data);
+        $this->view('auth/register', $data);
         exit();
     }
 
@@ -50,18 +50,22 @@ class AuthentificationController extends Controler
                 'bio' => trim($_POST['bio'] ?? ''),
                 'experience_year' => (int) ($_POST['experienceYears'] ?? 0),
                 'certification' => trim($_POST['certifications'] ?? ''),
-                'photo' => $_FILES['photo'] , 
-                
+                'photo' => $_FILES['photo']
             ];
+
+            $coachSport = [
+                'sports' => $_POST['sports'] 
+            ];
+
+            // var_dump($coachSport);
+
+            // echo 'slm ';
+            // exit;
+
         }
 
         $authService = new AuthentificationService;
-        $reponse = $authService->register($data, $coachProfileData);
-
-        // var_dump($reponse);
-
-        // echo 'slm ';
-        // exit;
+        $reponse = $authService->register($data, $coachProfileData , $coachSport );
 
         if ($reponse) {
             header('Location: login');
@@ -90,7 +94,7 @@ class AuthentificationController extends Controler
 
         $authService = new AuthentificationService();
         $result = $authService->login($email, $password);
-        
+
         // var_dump($result) ; 
         // exit ; 
 
@@ -109,13 +113,13 @@ class AuthentificationController extends Controler
 
         // echo  Session::getSession('id');     
         // echo $user->getUserId() ; 
-        
+
         // exit ; 
 
 
         // die ($user -> getRole() ) ;
 
-        $this -> checkrole() ; 
+        $this->checkrole();
     }
 
 }

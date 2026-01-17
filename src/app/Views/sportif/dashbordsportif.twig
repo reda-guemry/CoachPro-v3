@@ -92,60 +92,55 @@
 					<div id="coachsList" class="space-y-4 max-h-96 overflow-y-auto">
 
 						{% for coach in coachs %}
-							{% set hasDetail = false %}
+    {# Only display if the role is coach, based on your dump index 0 is a 'sportif' #}
+    {% if coach.role == 'coach' %}
+    
+        <div class="border-2 border-gray-200 rounded-lg p-4 hover:border-purple-600 transition duration-300">
+            <div class="flex items-start space-x-4">
+                {# Use coach.photo directly #}
+                <img src="src/public/assets/image/{{ coach.photo }}" alt="{{ coach.first_name }} {{ coach.last_name }}" class="w-20 h-20 rounded-full object-cover">
 
-							{% for detailCoach in coachsDeatail %}
-								{% if detailCoach.coachId == coach.userId %}
-									{% set hasDetail = true %}
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-gray-800">
+                        {{ coach.first_name }} {{ coach.last_name }}
+                    </h3>
 
-									<div class="border-2 border-gray-200 rounded-lg p-4 hover:border-purple-600 transition duration-300">
-										<div class="flex items-start space-x-4">
-											<img src="src/public/assets/image/{{ detailCoach.photo }}" alt="{{ coach.firstName }} {{ coach.lastName }}" class="w-20 h-20 rounded-full object-cover">
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-trophy text-purple-600 mr-1"></i>
+                        {# Loop through the sports array inside the coach object #}
+                        {% for sport in coach.sports %}
+                            <span class="mr-1">{{ sport.sport_name }}{% if not loop.last %}, {% endif %}</span>
+                        {% else %}
+                            <span>Aucun sport</span>
+                        {% endfor %}
+                    </p>
 
-											<div class="flex-1">
-												<h3 class="text-lg font-bold text-gray-800">
-													{{ coach.firstName }}
-													{{ coach.lastName }}
-												</h3>
+                    <p class="text-sm text-gray-600">
+                        <i class="fas fa-certificate text-purple-600 mr-1"></i>
+                        {{ coach.certification }}
+                    </p>
 
-												<p class="text-sm text-gray-600">
-													<i class="fas fa-trophy text-purple-600 mr-1"></i>
-													{% for sport in coach.sports %}
-														{{ sport.sportName }}
-													{% endfor %}
-												</p>
+                    <div class="flex items-center mt-2">
+                        <span class="text-yellow-500 mr-1">
+                            <i class="fas fa-star"></i>
+                        </span>
+                        <span class="text-sm font-semibold">N/A</span>
+                        <span class="text-sm text-gray-500 ml-2">
+                            {{ coach.experience_year }} ans d'exp.
+                        </span>
+                    </div>
+                </div>
 
-												<p class="text-sm text-gray-600">
-													<i class="fas fa-certificate text-purple-600 mr-1"></i>
-													{{ detailCoach.certification }}
-												</p>
+                {# Updated variable names to snake_case #}
+                <button onclick="openBookingModal({{ coach.user_id }}, '{{ coach.first_name }} {{ coach.last_name }}')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition duration-300">
+                    <i class="fas fa-calendar-plus mr-1"></i>
+                    Réserver
+                </button>
+            </div>
+        </div>
 
-												<div class="flex items-center mt-2">
-													<span class="text-yellow-500 mr-1">
-														<i class="fas fa-star"></i>
-													</span>
-													<span class="text-sm font-semibold">N/A</span>
-													<span class="text-sm text-gray-500 ml-2">
-														{{ detailCoach.experienceYear }}
-														ans d'exp.
-													</span>
-												</div>
-											</div>
-
-											<button onclick="openBookingModal({{ coach.userId }}, '{{ coach.firstName }} {{ coach.lastName }}')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition duration-300">
-												<i class="fas fa-calendar-plus mr-1"></i>
-												Réserver
-											</button>
-										</div>
-									</div>
-
-								{% endif %}
-							{% endfor %}
-
-							{% if not hasDetail %}
-								<p class="text-gray-500">Aucun détail pour ce coach.</p>
-							{% endif %}
-						{% endfor %}
+    {% endif %}
+{% endfor %}
 
 					</div>
 				</div>

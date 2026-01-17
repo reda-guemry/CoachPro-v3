@@ -12,14 +12,14 @@ use src\app\DAO\BookingDAO;
 class SportifService
 {
 
-    public function getAllCoach($data)
+    public function getAllCoach()
     {
 
         //   var_dump($data) ; 
         //     exit ; 
 
         $coachdAO = new UserDAO();
-        return $coachdAO->getall($data);
+        return $coachdAO->getcoaches();
 
     }
 
