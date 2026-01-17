@@ -4,11 +4,13 @@ namespace src\app\DAO;
 use PDOException;
 use src\app\DAO\user\UserdetailsDAO;
 use src\config\Database;
-use PDO;
-use src\app\Models\User;
-use src\app\Models\Availabilite;
-use src\app\Models\Userdetail;
-use src\app\Models\Booking;
+use PDO ;
+use src\app\Models\User ;
+use src\app\Models\Availabilite ;
+use src\app\Models\Userdetail ;
+use src\app\Models\Booking ; 
+use src\app\Models\Review ;
+
 
 
 abstract class GenericDAO

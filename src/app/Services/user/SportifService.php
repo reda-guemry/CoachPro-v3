@@ -2,6 +2,7 @@
 
 namespace src\app\Services\user;
 
+use src\app\DAO\ReviewDAO;
 use src\app\DAO\user\UserDAO;
 use src\app\DAO\AvailabilitesDAO;
 use src\config\Database;
@@ -93,5 +94,13 @@ class SportifService
         
 
     }
+
+
+    public function createcommentaire($data) {
+        $reviewDAO = new ReviewDAO() ;
+        $reviewDAO -> create($data) ; 
+
+    }
+
 
 }

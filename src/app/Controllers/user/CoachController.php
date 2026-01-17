@@ -27,15 +27,18 @@ class CoachController extends Controler
 
         
         $coachaccepteboking = $coashServ->getAllAccepteboking($data);
+
+        $coachReview = $coashServ -> getAllReview($data) ;
         
         
-        // var_dump($coachaccepteboking) ; 
+        // var_dump($coachReview) ; 
         // exit ; 
 
         $data = [
             'availabilities' => $reponse,
             'pendingBookings' => $coashBoking,
             'coachacceptebooking' => $coachaccepteboking ,
+            'reviews' => $coachReview ,
             'statusColors' => [
                 'available' => 'bg-green-100 text-green-800',
                 'booked' => 'bg-yellow-100 text-yellow-800',

@@ -139,5 +139,8 @@ class AuthentificationService
         ];
     }
 
+    public function getsports() {
+        
+    }
 
 }

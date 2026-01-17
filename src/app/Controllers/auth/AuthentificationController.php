@@ -19,6 +19,15 @@ class AuthentificationController extends Controler
             header('Location: dhasbord');
             exit();
         }
+
+        $authService = new AuthentificationService;
+        $reponse = $authService->getsports();
+
+
+        $data = [
+            'sports' => 's'
+        ] ;
+
         $this->view('auth/register');
         exit();
     }

@@ -4,6 +4,7 @@ namespace src\app\Services\user;
 
 use src\app\DAO\AvailabilitesDAO;
 use src\app\DAO\BookingDAO;
+use src\app\DAO\ReviewDAO;
 
 
 class CoachService
@@ -86,6 +87,13 @@ class CoachService
 
     }
 
+    public function getAllReview($id) {
+
+        $bookingDAO = new ReviewDAO();
+
+        return $bookingDAO->getreviewbycoach($id) ;
+
+    }
     
 
 }

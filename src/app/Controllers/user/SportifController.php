@@ -124,7 +124,24 @@ class SportifController extends Controler
 
     }
 
-    
+    public function createcommentaire() {
+        $data = [
+            'booking_id' => $_POST['reviewBookingId'] , 
+            'commentaire' => $_POST['reviewComment'] , 
+            'ratting' => $_POST['ratingValue']
+        ] ; 
+
+
+        $sportifServ = new SportifService() ; 
+
+        $sportifServ -> createcommentaire($data) ; 
+
+        header('Location: ../dhasbord') ; 
+        exit ; 
+
+
+
+    }
 
 
 }

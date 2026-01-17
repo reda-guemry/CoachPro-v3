@@ -154,7 +154,7 @@
 									</div>
 								</div>
 							{% else %}
-								<p>No pending bookings.</p>
+								<p class=' text-gray-600  mr-1'>No pending bookings.</p>
 							{% endfor %}
 						</div>
 					</div>
@@ -275,31 +275,33 @@
 							<i class="fas fa-star text-yellow-500 mr-2"></i>Avis Reçus
 						</h2>
 						<div id="reviewsList" class="space-y-3 max-h-64 overflow-y-auto">
-							<?php foreach($reviews as $review) { ?>
+							{% for review in reviews %}
 								<div class="border-2 border-gray-200 rounded-lg p-3">
 									<div class="flex justify-between items-start mb-2">
+
 										<p class="font-semibold text-gray-800 text-sm">
-											<?= $review['first_name'] . ' ' . $review['last_name']; ?>
+											{{ review.first_name }}
+											{{ review.last_name }}
 										</p>
 
 										<div class="flex items-center">
-											<?php
-                                            for ($i = 0; $i < $review['ratting']; $i++) {
-                                                echo '<i class="fas fa-star text-yellow-500 text-xs"></i>';
-                                            }
+											{% for i in 1..review.ratting %}
+												<i class="fas fa-star text-yellow-500 text-xs"></i>
+											{% endfor %}
 
-                                            for ($i = 0; $i < (5 - $review['ratting']); $i++) {
-                                                echo '<i class="fas fa-star text-gray-300 text-xs"></i>';
-                                            }
-                                        ?>
+											{% if review.ratting < 5 %}
+												{% for i in 1..(5 - review.ratting) %}
+													<i class="fas fa-star text-gray-300 text-xs"></i>
+												{% endfor %}
+											{% endif %}
 										</div>
 									</div>
 
 									<p class="text-gray-600 text-xs mb-1">
-										<?= $review['commentaire']; ?>
+										{{ review.commentaire }}
 									</p>
 								</div>
-							<?php } ?>
+							{% endfor %}
 						</div>
 					</div>
 				</div>
