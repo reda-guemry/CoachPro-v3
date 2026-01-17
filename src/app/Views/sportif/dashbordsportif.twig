@@ -192,6 +192,9 @@
 									{% if booking.status in ['pending', 'accepted'] %}
 										<form method="post" action='sportif/annulereser' class="flex-1 h-full">
 											<input type="hidden" name="bookingId" value="{{ booking.booking_id }}">
+
+											<input type="hidden" name="availibiliterID" value="{{ booking.availability_id }}">
+
 											<button type="submit" name="action" value="annulerReservation" class="w-full h-full flex-1 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs transition duration-300">
 												<i class="fas fa-times mr-1"></i>Annuler
 											</button>
@@ -252,7 +255,7 @@
 						<i class="fas fa-times text-2xl"></i>
 					</button>
 				</div>
-				<form id="reviewForm" method="post">
+				<form id="reviewForm" action='sportif/createcommentaire' method="post">
 					<input type="hidden" id="reviewBookingId" name="reviewBookingId">
 					<input type="hidden" id="coash_id" name="coash_id">
 					<div class="mb-4">

@@ -23,6 +23,9 @@ $router -> post('booking/accept' , 'user\CoachController@acceptebooking') ;
 
 $router -> post('sportif/annulereser' , 'user\SportifController@annulerreservation') ; 
 
+$router -> post('sportif/createcommentaire' , 'user\SportifController@createcommentaire') ; 
+
+
 
 
 

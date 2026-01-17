@@ -66,10 +66,30 @@ class SportifService
         
     }
 
-    public function annulerreservation($data) {
+    public function annulerreservation($data , $update) {
+
+        $db = Database::getInstance()->getConnect();
+
+        $dataupdate = ['status' => 'available'] ;
+
+
         $bookingDAO = new BookingDAO() ; 
+
+        $availabilitesDAO = new AvailabilitesDAO;
+
         
         $bookingDAO -> delete($data) ; 
+
+        $db->beginTransaction();
+
+        $availabilitesDAO -> update($dataupdate, $update) ; 
+        
+        $bookingDAO -> delete($data) ; 
+
+
+
+        $db->commit();
+
         
 
     }

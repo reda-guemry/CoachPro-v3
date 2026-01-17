@@ -45,7 +45,7 @@ class BookingDAO extends GenericDAO
 
     public function getsportifbooking($id) {
         $pdo = Database::getInstance()->getConnect();
-        $sql = "SELECT u.user_id , u.first_name , u.last_name , b.booking_id , b.status , a.availabilities_date , a.start_time , a.end_time
+        $sql = "SELECT u.user_id , u.first_name , u.last_name , b.booking_id , b.status , a.availabilities_date , a.start_time , a.end_time , b.availability_id
                     FROM users u 
                     INNER JOIN bookings b ON u.user_id = b.coach_id 
                     INNER JOIN availabilities a ON a.availability_id = b.availability_id

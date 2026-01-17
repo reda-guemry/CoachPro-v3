@@ -113,14 +113,18 @@ class SportifController extends Controler
 
     public function annulerreservation() {
         $data = ['booking_id' => $_POST['bookingId']]; 
+        $update = ['availability_id' => $_POST['availibiliterID']]; 
+
 
         $sportifService = new SportifService() ; 
-        $sportifService -> annulerreservation($data);
+        $sportifService -> annulerreservation($data , $update);
 
         header('Location: ../dhasbord') ; 
         exit ; 
 
     }
+
+    
 
 
 }
