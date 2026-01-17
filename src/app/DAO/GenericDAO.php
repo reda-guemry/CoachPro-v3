@@ -3,6 +3,7 @@
 namespace src\app\DAO;
 use PDOException;
 use src\app\DAO\user\UserdetailsDAO;
+use src\app\Models\Sport;
 use src\config\Database;
 use PDO ;
 use src\app\Models\User ;
@@ -22,6 +23,7 @@ abstract class GenericDAO
         'availabilities' => Availabilite::class,
         'bookings' => Booking::class,
         'reviews' => Review::class,
+        'sports' => Sport::class
     ];
 
 

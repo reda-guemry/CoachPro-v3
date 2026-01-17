@@ -3,6 +3,7 @@
 namespace src\app\Services\auth;
 
 use src\app\DAO\auth\AuthentificationDAO;
+use src\app\DAO\SportDAO;
 use src\app\DAO\user\UserdetailDAO;
 
 class AuthentificationService
@@ -140,6 +141,9 @@ class AuthentificationService
     }
 
     public function getsports() {
+        $sportDAO = new SportDAO() ; 
+        return $sportDAO -> getall() ; 
+        
         
     }
 

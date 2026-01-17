@@ -2,6 +2,20 @@
 
 namespace src\app\DAO;
 
-class SportDAO {
+use src\app\DAO\GenericDAO ;
+use src\config\Database; 
+
+
+
+class SportDAO extends GenericDAO {
+
+    public function getTablename() {
+        return 'sports' ;  
+
+    }
+
+
+
+
 
 }

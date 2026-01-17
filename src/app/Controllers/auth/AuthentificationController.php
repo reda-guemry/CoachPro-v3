@@ -21,14 +21,16 @@ class AuthentificationController extends Controler
         }
 
         $authService = new AuthentificationService;
-        $reponse = $authService->getsports();
+        $sports = $authService->getsports();
 
+        // var_dump($sports) ;
+        // exit ; 
 
         $data = [
-            'sports' => 's'
+            'sports' => $sports 
         ] ;
 
-        $this->view('auth/register');
+        $this->view('auth/register' , $data);
         exit();
     }
 
@@ -48,7 +50,8 @@ class AuthentificationController extends Controler
                 'bio' => trim($_POST['bio'] ?? ''),
                 'experience_year' => (int) ($_POST['experienceYears'] ?? 0),
                 'certification' => trim($_POST['certifications'] ?? ''),
-                'photo' => $_FILES['photo']
+                'photo' => $_FILES['photo'] , 
+                
             ];
         }
 
