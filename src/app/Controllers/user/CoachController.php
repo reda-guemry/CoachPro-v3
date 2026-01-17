@@ -14,6 +14,7 @@ class CoachController extends Controler
 
     public function index()
     {
+        $this -> checkcoach() ; 
 
         $data = [
             'coach_id' => Session::getSession('id')
@@ -38,6 +39,7 @@ class CoachController extends Controler
             'availabilities' => $reponse,
             'pendingBookings' => $coashBoking,
             'coachacceptebooking' => $coachaccepteboking ,
+            'userRole' => Session::getSession('role') , 
             'reviews' => $coachReview ,
             'statusColors' => [
                 'available' => 'bg-green-100 text-green-800',

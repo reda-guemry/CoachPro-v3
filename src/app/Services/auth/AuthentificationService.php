@@ -157,8 +157,6 @@ class AuthentificationService
     {
         $sportDAO = new SportDAO();
         return $sportDAO->getall();
-
-
     }
 
 }

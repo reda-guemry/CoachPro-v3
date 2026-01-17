@@ -14,19 +14,19 @@ class Controler
 
     public function view($page, $data = [])
     {
-        $fileName = $page . '.twig' ; 
+        $fileName = $page . '.twig';
         echo $this->twig->render($fileName, $data);
 
     }
 
     public function checkrole()
     {
-        $role = Session::getSession('role') ; 
+        $role = Session::getSession('role');
 
         // var_dump($role) ; 
         // exit ;
 
-        if(empty($role)) {
+        if (empty($role)) {
             header('Location: login');
             exit;
         }
@@ -37,6 +37,27 @@ class Controler
         }
 
         header('Location: dhasbord');
+
+    }
+
+    public function checksportif()
+    {
+        $role = Session::getSession('role');
+        
+        if ($role !== 'sportif') {
+            header('Location: login');
+            exit;
+        }
+
+    }
+
+    public function checkcoach() {
+        $role = Session::getSession('role');
+        
+        if ($role !== 'coach') {
+            header('Location: login');
+            exit;
+        }
 
     }
 

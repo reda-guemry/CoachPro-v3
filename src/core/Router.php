@@ -33,7 +33,8 @@ class Router
 
 
         if (!isset($this->routes[$methode][$uri])) {
-            die('404 Not Found');
+            echo $this->twig->render('404.twig');
+            exit ; 
         }
 
         $handler = $this -> routes[$methode][$uri] ; 

@@ -21,7 +21,7 @@ class AuthentificationController extends Controler
         }
 
         $authService = new AuthentificationService;
-        $sports = $authService->getsports();
+        $sports = $authService-> getsports();
 
         // var_dump($sports) ;
         // exit ; 
@@ -71,7 +71,7 @@ class AuthentificationController extends Controler
             header('Location: login');
             exit ; 
         } else {
-            die('hmaaaaar hadche ghalat');
+            die('error hna');
         }
 
     }

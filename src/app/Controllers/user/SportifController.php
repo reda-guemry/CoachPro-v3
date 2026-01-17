@@ -15,6 +15,8 @@ class SportifController extends Controler
 
     public function index()
     {
+        $this -> checksportif() ; 
+
         // $data = ['role' => 'coach'];
         $sportifID = ['sportif_id' => Session::getSession('id')];
         $newCoachDAO = new SportifService();

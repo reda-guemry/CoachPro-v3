@@ -1,16 +1,8 @@
 
+{% extends 'layout.twig' %}
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/output.css">
-</head>
-
-<body>
+{% block content %}
 
     <section class="py-20 bg-gray-50">
         <div class="container mx-auto px-4 text-center">
@@ -42,52 +34,12 @@
 
                 <!-- Boutons d'action -->
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="/fan-seat/src/page/accueil.php"
+                    <a href="/CoachPro-v3/"
                         class="bg-linear-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transition inline-block">
                         <i class="fas fa-home mr-2"></i>
                         Retour à l'Accueil
                     </a>
-                    <a href="/fan-seat/src/page/matches.php"
-                        class="bg-white border-2 border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition inline-block">
-                        <i class="fas fa-futbol mr-2"></i>
-                        Voir les Matchs
-                    </a>
                 </div>
-
-                <!-- Liens utiles -->
-                <div class="mt-12 p-6 bg-white rounded-lg shadow-md">
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Liens Utiles</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <a href="/fan-seat/src/page/accueil.php"
-                            class="text-blue-600 hover:text-blue-700 transition">
-                            <i class="fas fa-home block text-2xl mb-2"></i>
-                            Accueil
-                        </a>
-                        <a href="/fan-seat/src/page/matches.php"
-                            class="text-blue-600 hover:text-blue-700 transition">
-                            <i class="fas fa-calendar block text-2xl mb-2"></i>
-                            Matchs
-                        </a>
-                        <a href="/fan-seat/src/page/contact.php"
-                            class="text-blue-600 hover:text-blue-700 transition">
-                            <i class="fas fa-envelope block text-2xl mb-2"></i>
-                            Contact
-                        </a>
-                        <a href="/fan-seat/src/page/help.php"
-                            class="text-blue-600 hover:text-blue-700 transition">
-                            <i class="fas fa-question-circle block text-2xl mb-2"></i>
-                            Aide
-                        </a>
-                    </div>
-                </div>
-
-                <?php if (isset($_SERVER['REQUEST_URI'])): ?>
-                    <div class="mt-6 text-sm text-gray-500">
-                        <p>URL demandée: <code
-                                class="bg-gray-200 px-2 py-1 rounded"><?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?></code>
-                        </p>
-                    </div>
-                <?php endif; ?>
             </div>
         </div>
     </section>
@@ -111,6 +63,4 @@
     </style>
 
 
-</body>
-
-</html>
+{% endblock %}
