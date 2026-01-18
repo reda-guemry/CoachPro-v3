@@ -14,7 +14,7 @@ class CoachController extends Controler
 
     public function index()
     {
-        $this -> checkcoach() ; 
+        $this->checkcoach();
 
         $data = [
             'coach_id' => Session::getSession('id')
@@ -26,21 +26,21 @@ class CoachController extends Controler
 
         $coashBoking = $coashServ->getAllBooking($data);
 
-        
+
         $coachaccepteboking = $coashServ->getAllAccepteboking($data);
 
-        $coachReview = $coashServ -> getAllReview($data) ;
-        
-        
+        $coachReview = $coashServ->getAllReview($data);
+
+
         // var_dump($coachReview) ; 
         // exit ; 
 
         $data = [
             'availabilities' => $reponse,
             'pendingBookings' => $coashBoking,
-            'coachacceptebooking' => $coachaccepteboking ,
-            'userRole' => Session::getSession('role') , 
-            'reviews' => $coachReview ,
+            'coachacceptebooking' => $coachaccepteboking,
+            'userRole' => Session::getSession('role'),
+            'reviews' => $coachReview,
             'statusColors' => [
                 'available' => 'bg-green-100 text-green-800',
                 'booked' => 'bg-yellow-100 text-yellow-800',
@@ -76,11 +76,8 @@ class CoachController extends Controler
         // var_dump($reponse) ; 
         // exit ;
 
-        if ($reponse['status']) {
-            header('Location: ../dhasbordcoach');
-        }
+        header('Location: ../dhasbordcoach');
 
-        die($reponse);
 
     }
 
@@ -101,35 +98,35 @@ class CoachController extends Controler
     public function refusebooking()
     {
         $data = [
-            'status' => 'rejected'            
+            'status' => 'rejected'
         ];
         $condition = [
-            'booking_id' => $_POST['booking_id'] 
-        ] ;
+            'booking_id' => $_POST['booking_id']
+        ];
 
         $coachService = new CoachService();
-        $coachService->gestiondereservation($data , $condition);
+        $coachService->gestiondereservation($data, $condition);
 
-        header('Location: ../dhasbordcoach') ; 
+        header('Location: ../dhasbordcoach');
 
     }
-     public function acceptebooking()
+    public function acceptebooking()
     {
         $data = [
-            'status' => 'accepted'            
+            'status' => 'accepted'
         ];
         $condition = [
-            'booking_id' => $_POST['booking_id'] 
-        ] ;
+            'booking_id' => $_POST['booking_id']
+        ];
 
         $coachService = new CoachService();
-        $coachService->gestiondereservation($data , $condition);
+        $coachService->gestiondereservation($data, $condition);
 
-        header('Location: ../dhasbordcoach') ; 
+        header('Location: ../dhasbordcoach');
 
     }
 
-    
+
 
 
 }
