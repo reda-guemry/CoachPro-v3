@@ -1,0 +1,51 @@
+# version off language compose
+version: '3.8'
+
+services:
+  # php image 
+  php:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: my_php_app
+    volumes:
+      - ./src:/var/www/html  # connect to be the modification live whene refrech and to be samme code on ngnix in pho to be can read theme 
+    networks:
+      - app-network  # connect whithe the our network 
+
+  # ngnix umage 
+  nginx:
+    image: nginx:alpine
+    container_name: my_nginx_server
+    ports:
+      - "8080:80"  # connect whithe our port in local machine 
+    volumes:
+      - ./src:/var/www/html #  connect to be the modification live whene refrech
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php # told the docker this image be efter image of php because hes depends on there  
+    networks:
+      - app-network
+
+  # databasse image
+  db:
+    image: postgres:15-alpine  
+    container_name: my_postgres_db 
+    environment:
+      POSTGRES_DB: ${DB_NAME:-myappdb}      # name of databasse
+      POSTGRES_USER: ${DB_USER:-user}       # user naem 
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pass} # mode de pass
+    volumes:
+      - pgdata:/var/lib/postgresql/data # save the daata on file entre docker on local machin if we destroy the conatiner data can be in new container 
+    networks:
+      - app-network 
+
+# create the networck 
+networks:
+  app-network:
+    driver: bridge
+
+
+volumes:
+  pgdata:
+    driver: local
